@@ -1,0 +1,45 @@
+@startuml
+actor App
+participant Biblioteca
+participant Libro
+participant Utente
+participant Prestito
+
+App -> Biblioteca : registraPrestito(libro, utente, giorni)
+
+' Controllo esistenza utente
+Biblioteca -> Utente : isAttivo()
+Utente --> Biblioteca : boolean
+alt utente non attivo
+    Biblioteca --> App : false
+    return
+end
+
+' Controllo copie disponibili
+Biblioteca -> Biblioteca : copieDisponibili(libro)
+Biblioteca --> Biblioteca : numeroCopie
+
+alt nessuna copia disponibile
+    Biblioteca --> App : false
+    return
+end
+
+' Controllo prestiti attivi dell'utente
+Biblioteca -> Biblioteca : prestitiAttiviUtente(utente)
+Biblioteca --> Biblioteca : numeroPrestiti
+
+alt utente ha raggiunto limite
+    Biblioteca --> App : false
+    return
+end
+
+' Creazione prestito
+Biblioteca -> Prestito : new Prestito(libro, utente, giorni)
+activate Prestito
+Prestito --> Biblioteca : prestito creato
+
+' Aggiunta alla lista
+Biblioteca -> Biblioteca : prestiti.add(prestito)
+
+Biblioteca --> App : true
+@enduml

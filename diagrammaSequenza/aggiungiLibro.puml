@@ -1,0 +1,17 @@
+@startuml
+actor Bibliotecario
+participant Biblioteca
+participant Libro
+
+Bibliotecario -> Biblioteca : aggiungiLibro(isbn, titolo)
+Biblioteca -> Biblioteca : cercaLibro(isbn)
+
+alt libro trovato
+    Biblioteca -> Libro : incrementaCopie()
+else libro non trovato
+    Biblioteca -> Libro : new Libro(isbn, titolo)
+    Biblioteca -> Biblioteca : aggiungi alla lista libri
+end
+
+Biblioteca --> Bibliotecario : conferma
+@enduml
