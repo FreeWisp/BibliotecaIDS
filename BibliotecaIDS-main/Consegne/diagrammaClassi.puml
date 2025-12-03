@@ -1,0 +1,72 @@
+@startuml
+
+class Libro {
+    - titolo : String
+    - autore : String
+    - isbn : String
+    - numeroCopie : int 
+    + getTitolo() : String
+    + getAutore() : String
+    + getIsbn() : String
+    + setTitolo(String)
+    + setAutore(String)
+    + setIsbn(String)
+}
+
+class Utente {
+    - nome : String
+    - cognome : String
+    - matricola : String
+    - mail : String
+    - attivo : boolean
+    + getNome() : String
+    + getCognome() : String
+    + getMatricola() : String
+    + getMail() : String
+    + setNome(String)
+    + setCognome(String)
+    + setMatricola(String)
+    + setMail(mail)
+}
+
+class Prestito {
+    - libro : Libro
+    - utente : Utente
+    - dataPrestito : LocalDate
+    - dataPrevistaRestituzione : LocalDate
+    - dataRestituzione : LocalDate
+    + isAttivo() : boolean
+    + isInRitardo() : boolean
+    + registraRestituzione()
+    
+}
+
+class Biblioteca {
+    - libri : List<Libro>
+    - utenti : List<Utente>
+    - prestiti : List<Prestito>
+    + aggiungiLibro(Libro)
+    + modificaLibro(String, String, String)
+    + cancellaLibro(String)
+    + cercaLibro(String) : List<Libro>
+    + listaLibriOrdinatiPerTitolo() : List<Libro>
+    + aggiungiUtente(Utente)
+    + modificaUtente(String, String, String)
+    + cancellaUtente(String)
+    + cercaUtente(String) : List<Utente>
+    + listaUtentiOrdinati() : List<Utente>
+    + prestaAttiviOrdinati() : List<Prestito>
+    + registraRestituzione(String, String)
+    + copieDisponibili(Libro) : int
+    + prestitiAttiviUtente(Utente) : int
+    + registraPrestito(Libro, Utente, int) : boolean
+}
+
+Biblioteca "1" --> "*" Libro : contiene >
+Biblioteca "1" --> "*" Utente : contiene >
+Biblioteca "1" --> "*" Prestito : gestisce >
+
+Prestito "1" --> "1" Libro
+Prestito "1" --> "1" Utente
+
+@enduml
