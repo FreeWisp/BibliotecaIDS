@@ -1,0 +1,46 @@
+name: Build and publish Doxygen docs
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:   # permette il run manuale dalla UI Actions
+
+jobs:
+  build:
+    name: Build docs
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Doxygen and Graphviz
+        run: sudo apt-get update && sudo apt-get install -y doxygen graphviz
+
+      - name: Generate Doxygen documentation
+        run: |
+          # se il tuo Doxyfile non si chiama Doxyfile, cambia il comando:
+          doxygen Doxyfile
+
+      - name: Prepare pages artifact (.nojekyll)
+        run: |
+          mkdir -p html
+          # crea .nojekyll per evitare il comportamento di Jekyll su GitHub Pages
+          touch html/.nojekyll || true
+
+      - name: Upload pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: html
+
+  deploy:
+    name: Deploy to GitHub Pages
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Deploy artifact to GitHub Pages
+        uses: actions/deploy-pages@v4
