@@ -1,0 +1,14 @@
+@startuml
+actor Bibliotecario as OP
+participant Biblioteca as B
+participant ServizioPrestiti as PS
+participant PrestitoRepository as PR
+
+OP -> B : visualizzaPrestitiInRitardo()
+B -> PS : prestitiInRitardo()
+PS -> PR : cercaPrestitiAttivi()
+PR --> PS : listaPrestiti
+PS -> PS : filtra in base alla data odierna
+PS --> B : lista ritardi
+B --> OP : mostra elenco prestiti in ritardo
+@enduml

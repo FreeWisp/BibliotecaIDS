@@ -1,0 +1,23 @@
+@startuml
+actor SistemaSchedulato as Cron
+participant Biblioteca as B
+participant ServizioArchivio as AS
+participant LibroRepository as LR
+participant UtenteRepository as UR
+participant PrestitoRepository as PR
+
+Cron -> B : salvaArchivio()
+B -> AS : salva()
+
+AS -> LR : getAllLibri()
+LR --> AS : listaLibri
+
+AS -> UR : getAllUtenti()
+UR --> AS : listaUtenti
+
+AS -> PR : getAllPrestiti()
+PR --> AS : listaPrestiti
+
+AS -> AS : serializzaSuFile()
+AS --> B : archivio salvato
+@enduml

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" 
+            xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="it.unisa.biblioteca.controller.UtentiController"
+            prefHeight="700.0" prefWidth="1000.0">
+    
+    <!-- HEADER -->
+    <top>
+        <VBox style="-fx-background-color: #9b59b6;">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+            <Label text="👥 Gestione Utenti" textFill="white">
+                <font>
+                    <Font name="System Bold" size="24"/>
+                </font>
+            </Label>
+        </VBox>
+    </top>
+    
+    <center>
+        <SplitPane dividerPositions="0.6">
+            
+            <!-- LEFT - Tabella utenti -->
+            <VBox spacing="10">
+                <padding>
+                    <Insets top="15" right="15" bottom="15" left="15"/>
+                </padding>
+                
+                <Label text="Elenco Utenti">
+                    <font>
+                        <Font name="System Bold" size="16"/>
+                    </font>
+                </Label>
+                
+                <!-- Barra ricerca -->
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <TextField fx:id="txtCerca" promptText="Cerca per nome, cognome o matricola..." HBox.hgrow="ALWAYS"/>
+                    <Button text="🔍 Cerca" onAction="#handleCerca" style="-fx-background-color: #9b59b6; -fx-text-fill: white;"/>
+                    <Button text="Mostra Tutti" onAction="#handleMostraTutti" style="-fx-background-color: #95a5a6; -fx-text-fill: white;"/>
+                </HBox>
+                
+                <!-- Tabella -->
+                <TableView fx:id="tblUtenti" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn text="Nome" prefWidth="120">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="nome"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn text="Cognome" prefWidth="120">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="cognome"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn text="Matricola" prefWidth="100">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="matricola"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn text="Email" prefWidth="180">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="mail"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn text="Attivo" prefWidth="70">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="attivo"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                    </columns>
+                </TableView>
+                
+                <!-- Bottoni azioni -->
+                <HBox spacing="10">
+                    <Button text="✏️ Modifica" fx:id="btnModifica" onAction="#handleModifica" 
+                            style="-fx-background-color: #f39c12; -fx-text-fill: white;"/>
+                    <Button text="🗑️ Elimina" fx:id="btnElimina" onAction="#handleElimina" 
+                            style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="🔒 Disattiva/Attiva" fx:id="btnToggleAttivo" onAction="#handleToggleAttivo" 
+                            style="-fx-background-color: #34495e; -fx-text-fill: white;"/>
+                </HBox>
+            </VBox>
+            
+            <!-- RIGHT - Form aggiungi/modifica -->
+            <VBox spacing="15" style="-fx-background-color: #ecf0f1;">
+                <padding>
+                    <Insets top="15" right="15" bottom="15" left="15"/>
+                </padding>
+                
+                <Label fx:id="lblFormTitle" text="➕ Aggiungi Nuovo Utente">
+                    <font>
+                        <Font name="System Bold" size="16"/>
+                    </font>
+                </Label>
+                
+                <Separator/>
+                
+                <Label text="Nome:"/>
+                <TextField fx:id="txtNome" promptText="Inserisci il nome"/>
+                
+                <Label text="Cognome:"/>
+                <TextField fx:id="txtCognome" promptText="Inserisci il cognome"/>
+                
+                <Label text="Matricola:"/>
+                <TextField fx:id="txtMatricola" promptText="Es. 0512345678"/>
+                
+                <Label text="Email:"/>
+                <TextField fx:id="txtEmail" promptText="Es. mario.rossi@studenti.unisa.it"/>
+                
+                <CheckBox fx:id="chkAttivo" text="Utente attivo" selected="true"/>
+                
+                <Region VBox.vgrow="ALWAYS"/>
+                
+                <HBox spacing="10">
+                    <Button text="💾 Salva" onAction="#handleSalva" 
+                            style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20;"
+                            HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                    <Button text="🔄 Pulisci" onAction="#handlePulisci" 
+                            style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20;"
+                            HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                </HBox>
+            </VBox>
+            
+        </SplitPane>
+    </center>
+    
+    <!-- FOOTER -->
+    <bottom>
+        <HBox alignment="CENTER_LEFT" style="-fx-background-color: #34495e; -fx-padding: 10;">
+            <Label fx:id="lblStatus" text="Pronto" textFill="white"/>
+        </HBox>
+    </bottom>
+    
+</BorderPane>
