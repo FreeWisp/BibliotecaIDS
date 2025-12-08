@@ -1,0 +1,13 @@
+@startuml
+actor Bibliotecario as OP
+participant Biblioteca as B
+participant ServizioGestioneUtenti as S
+participant UtenteRepository as R
+
+OP -> B : inserisciUtente(datiUtente)
+B -> S : inserisciUtente(datiUtente)
+S -> R : salva(utente)
+R --> S : conferma
+S --> B : ok
+B --> OP : utente inserito correttamente
+@enduml

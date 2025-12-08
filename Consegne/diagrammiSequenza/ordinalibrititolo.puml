@@ -1,0 +1,14 @@
+@startuml
+actor Bibliotecario as OP
+participant Biblioteca as B
+participant ServizioGestioneLibri as S
+participant LibroRepository as R
+
+OP -> B : visualizzaLibriOrdinati()
+B -> S : listaLibriOrdinati()
+S -> R : getListaLibri()
+R --> S : listaLibri
+S -> S : ordinaPerTitolo()
+S --> B : lista ordinata
+B --> OP : mostra lista ordinata
+@enduml

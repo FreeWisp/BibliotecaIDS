@@ -1,0 +1,13 @@
+@startuml
+actor Bibliotecario as UA
+participant Biblioteca as B
+participant ServizioGestioneLibri as S
+participant LibroRepository as R
+
+UA -> B : cercaLibro(parametro)
+B -> S : cercaLibro(parametro)
+S -> R : cerca(parametro)
+R --> S : risultati
+S --> B : lista libri
+B --> UA : mostra libri trovati
+@enduml

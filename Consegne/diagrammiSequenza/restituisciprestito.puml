@@ -1,0 +1,22 @@
+@startuml
+actor Bibliotecario as UA
+participant Biblioteca as B
+participant ServizioPrestiti as PS
+participant PrestitoRepository as PR
+participant LibroRepository as LR
+
+UA -> B : restituisciLibro(matricola, isbn)
+B -> PS : restituisciLibro(matricola, isbn)
+
+PS -> PR : cercaPrestito(matricola, isbn)
+PR --> PS : prestito
+
+PS -> PR : eliminaPrestito(prestito)
+PR --> PS : ok
+
+PS -> LR : incrementaCopie(isbn)
+LR --> PS : ok
+
+PS --> B : restituzione confermata
+B --> UA : libro restituito
+@enduml

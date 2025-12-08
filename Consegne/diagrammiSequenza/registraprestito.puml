@@ -1,0 +1,29 @@
+@startuml
+actor Bibliotecario as UA
+participant Biblioteca as B
+participant ServizioPrestiti as PS
+participant PrestitoRepository as PR
+participant LibroRepository as LR
+participant UtenteRepository as UR
+
+UA -> B : registraPrestito(matricola, isbn)
+B -> PS : registraPrestito(matricola, isbn)
+
+PS -> UR : trovaUtente(matricola)
+UR --> PS : utente
+
+PS -> PR : prestitiAttiviUtente(matricola)
+PR --> PS : listaPrestiti
+
+PS -> LR : trovaLibro(isbn)
+LR --> PS : libro
+
+PS -> LR : verificaCopieDisponibili()
+LR --> PS : copieOk
+
+PS -> PR : salvaPrestito(prestito)
+PR --> PS : conferma
+
+PS --> B : prestito registrato
+B --> UA : conferma prestito
+@enduml
