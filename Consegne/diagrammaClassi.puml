@@ -100,20 +100,20 @@ Biblioteca *-- LibroRepository
 Biblioteca *-- UtenteRepository
 Biblioteca *-- PrestitoRepository
 
-Biblioteca *-- ServizioGestioneLibri
-Biblioteca *-- ServizioGestioneUtenti
-Biblioteca *-- ServizioPrestiti
-Biblioteca *-- ServizioArchivio
+Biblioteca *-- ServiziGestioneLibro
+Biblioteca *-- ServiziGestioneUtenti
+Biblioteca *-- ServiziPrestiti
+Biblioteca *-- ServiziArchivio
 
 ' Dipendenze servizi -> repository
-ServizioGestioneLibri ..> LibroRepository
-ServizioGestioneUtenti ..> UtenteRepository
-ServizioPrestiti ..> PrestitoRepository
-ServizioPrestiti ..> LibroRepository
-ServizioPrestiti ..> UtenteRepository
-ServizioArchivio ..> LibroRepository
-ServizioArchivio ..> UtenteRepository
-ServizioArchivio..> PrestitoRepository
+ServiziGestioneLibro ..> LibroRepository
+ServiziGestioneUtenti ..> UtenteRepository
+ServiziPrestiti ..> PrestitoRepository
+ServiziPrestiti ..> LibroRepository
+ServiziPrestiti ..> UtenteRepository
+ServiziArchivio ..> LibroRepository
+ServiziArchivio ..> UtenteRepository
+ServiziArchivio ..> PrestitoRepository
 
 ' Relazione indiretta Prestito -> Libro/Utente (annotazione)
 Prestito ..> Libro : tramite ISBN
