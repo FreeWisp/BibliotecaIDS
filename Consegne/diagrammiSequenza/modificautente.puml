@@ -6,7 +6,7 @@ participant UtenteRepository as R
 
 OP -> B : modificaUtente(matricola, nuoviDati)
 B -> S : modificaUtente(...)
-S -> R : trovaUtente(matricola)
+S -> R : cercaPerMatricola(matricola)
 R --> S : utente
 S -> R : aggiorna(utente)
 R --> S : ok

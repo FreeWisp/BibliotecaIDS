@@ -4,8 +4,8 @@ participant Biblioteca as B
 participant ServizioGestioneLibri as S
 participant LibroRepository as R
 
-UA -> B : inserisciLibro(datiLibro)
-B -> S : inserisciLibro(datiLibro)
+UA -> B : inserisciLibro(Libro)
+B -> S : inserisciLibro(libro)
 S -> R : salva(libro)
 R --> S : ok
 S --> B : conferma

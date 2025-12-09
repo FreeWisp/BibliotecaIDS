@@ -4,8 +4,8 @@ participant Biblioteca as B
 participant ServizioGestioneUtenti as S
 participant UtenteRepository as R
 
-OP -> B : inserisciUtente(datiUtente)
-B -> S : inserisciUtente(datiUtente)
+OP -> B : inserisciUtente(Utente)
+B -> S : inserisciUtente(Utente)
 S -> R : salva(utente)
 R --> S : conferma
 S --> B : ok

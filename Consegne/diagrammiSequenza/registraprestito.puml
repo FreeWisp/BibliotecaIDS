@@ -6,8 +6,8 @@ participant PrestitoRepository as PR
 participant LibroRepository as LR
 participant UtenteRepository as UR
 
-UA -> B : registraPrestito(matricola, isbn)
-B -> PS : registraPrestito(matricola, isbn)
+UA -> B : registraPrestito(matricola, isbn, dataRestituzione)
+B -> PS : registraPrestito(matricola, isbn, dataRestituzione)
 
 PS -> UR : trovaUtente(matricola)
 UR --> PS : utente
@@ -18,10 +18,10 @@ PR --> PS : listaPrestiti
 PS -> LR : trovaLibro(isbn)
 LR --> PS : libro
 
-PS -> LR : verificaCopieDisponibili()
+PS -> LR : getNumCopie()
 LR --> PS : copieOk
 
-PS -> PR : salvaPrestito(prestito)
+PS -> PR : inserisci Prestito(prestito)
 PR --> PS : conferma
 
 PS --> B : prestito registrato

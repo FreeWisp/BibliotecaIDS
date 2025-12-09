@@ -5,10 +5,10 @@ participant ServizioPrestiti as PS
 participant PrestitoRepository as PR
 participant LibroRepository as LR
 
-UA -> B : restituisciLibro(matricola, isbn)
-B -> PS : restituisciLibro(matricola, isbn)
+UA -> B : registraRestituzione(prestito)
+B -> PS : registraRestituzione(prestito)
 
-PS -> PR : cercaPrestito(matricola, isbn)
+PS -> PR : cercaPrestito(prestito)
 PR --> PS : prestito
 
 PS -> PR : eliminaPrestito(prestito)
