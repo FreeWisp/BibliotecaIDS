@@ -1,0 +1,35 @@
+{
+  "libri": [
+    {
+      "titolo": "Il canto dei cuori ribelli",
+      "autore": "Thirty Umrigar",
+      "isbn": "0088663",
+      "annoPubblicazione": 2022,
+      "numCopie": 7
+    },
+    {
+      "titolo": "La felicità nei giorni di pioggia",
+      "autore": "Imogen Clark",
+      "isbn": "0088665",
+      "annoPubblicazione": 2025,
+      "numCopie": 6
+    },
+    {
+      "titolo": "Le stelle brillano più forte",
+      "autore": "Rami Abou Jamous",
+      "isbn": "0087554",
+      "annoPubblicazione": 2023,
+      "numCopie": 4
+    }
+  ],
+  "utenti": [
+    {
+      "nome": "mario",
+      "cognome": "coppola",
+      "matricola": "1235678497",
+      "email": "mario.coppola@studenti.unisa.it",
+      "attivo": true
+    }
+  ],
+  "prestiti": []
+}

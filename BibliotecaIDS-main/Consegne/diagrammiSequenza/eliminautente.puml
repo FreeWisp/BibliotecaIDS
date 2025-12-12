@@ -1,0 +1,23 @@
+@startuml
+actor Bibliotecario as OP
+participant Biblioteca as B
+participant ServizioGestioneUtenti as S
+participant UtenteRepository as R
+participant PrestitoRepository as P
+
+OP -> B : eliminaUtente(matricola)
+B -> S : eliminaUtente(matricola)
+
+S -> P : prestitiAttiviUtente(matricola)
+P --> S : listaPrestiti
+
+alt utente ha prestiti attivi
+    S --> B : errore (utente non eliminabile)
+    B --> OP : impossibile eliminare (prestiti attivi)
+else
+    S -> R : elimina(matricola)
+    R --> S : ok
+    S --> B : eliminato
+    B --> OP : eliminazione completata
+end
+@enduml
