@@ -5,17 +5,17 @@
       "autore": "Thirty Umrigar",
       "isbn": "0088663",
       "annoPubblicazione": 2022,
-      "numCopie": 7
+      "numCopie": 6
     },
     {
-      "titolo": "La felicità nei giorni di pioggia",
+      "titolo": "La felicitï¿½ nei giorni di pioggia",
       "autore": "Imogen Clark",
       "isbn": "0088665",
       "annoPubblicazione": 2025,
       "numCopie": 6
     },
     {
-      "titolo": "Le stelle brillano più forte",
+      "titolo": "Le stelle brillano piï¿½ forte",
       "autore": "Rami Abou Jamous",
       "isbn": "0087554",
       "annoPubblicazione": 2023,
@@ -31,5 +31,11 @@
       "attivo": true
     }
   ],
-  "prestiti": []
+  "prestiti": [
+    {
+      "matricolaUtente": "1235678497",
+      "isbnLibro": "0088663",
+      "dataRestituzione": "2025-12-27"
+    }
+  ]
 }

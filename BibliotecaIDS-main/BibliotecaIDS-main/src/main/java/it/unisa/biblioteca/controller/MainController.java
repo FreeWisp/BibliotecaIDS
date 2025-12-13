@@ -12,6 +12,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.IOException;
+
 public class MainController {
 
     @FXML private Label lblTotaleLibri;
@@ -30,17 +33,37 @@ public class MainController {
     public void setBiblioteca(Biblioteca biblioteca) {
         this.biblioteca = biblioteca;
         this.archivio = biblioteca.getArchivioService();
+        caricaDatiIniziali();
     }
+    
+    private void caricaDatiIniziali() {
+    try {
+        File file = new File("biblioteca/biblioteca.json");
+        if (file.exists()) {
+            ArchivioData dati = archivio.carica("biblioteca/biblioteca.json");
+            if (dati != null) {
+                archivio.aggiornaBiblioteca(dati);
+                aggiornaStatistiche(); // ✅ Aggiorna SUBITO le statistiche!
+                lblStatus.setText("✅ Dati caricati: " + 
+                    dati.libri.size() + " libri, " + 
+                    dati.utenti.size() + " utenti, " + 
+                    dati.prestiti.size() + " prestiti");
+                return;
+            }
+        }
+        
+        // Se il file non esiste, mostra 0
+        aggiornaStatistiche();
+        lblStatus.setText("⚠️ Nessun dato - Inizia aggiungendo libri!");
+        
+    } catch (Exception e) {
+        aggiornaStatistiche();
+        lblStatus.setText("⚠️ Errore caricamento: " + e.getMessage());
+    }
+}
 
     @FXML
     private void initialize() {
-        // Inizializza la biblioteca solo se non è stata già impostata
-        if (biblioteca == null) {
-            biblioteca = new Biblioteca();
-            archivio = biblioteca.getArchivioService();
-        }
-
-        // Eventi pulsanti
         if (btnSalva != null)
             btnSalva.setOnAction(e -> salvaSuFile());
         if (btnCarica != null)
@@ -49,15 +72,10 @@ public class MainController {
                 aggiornaStatisticheDashboard();
             });
 
-        // Carica dati JSON all’avvio
-        try {
-            caricaDaFile();
-        } catch (Exception e) {
-            lblStatus.setText("⚠️ Nessun dato da caricare o file inesistente");
-        }
-
         lblStatus.setText("Sistema inizializzato - Benvenuto!");
     }
+    
+    
 
     private void aggiornaStatistiche() {
         lblTotaleLibri.setText(String.valueOf(
@@ -141,7 +159,6 @@ public class MainController {
         aggiornaStatistiche();
     }
 
-    // Salvataggio su file JSON
     private void salvaSuFile() {
         try {
             archivio.salva("biblioteca.json");
@@ -152,7 +169,6 @@ public class MainController {
         }
     }
 
-    // Caricamento da file JSON
     public void caricaDaFile() {
         try {
             ArchivioData dati = archivio.carica("biblioteca.json");

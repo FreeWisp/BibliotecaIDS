@@ -8,6 +8,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.File;
+
 public class Main extends Application {
 
     private Biblioteca biblioteca;
@@ -37,9 +39,21 @@ public class Main extends Application {
 
             System.out.println("✅ Applicazione avviata con successo!");
 
-            // **Salvataggio iniziale su file (facoltativo)**
-            ServizioArchivio archivio = biblioteca.getArchivioService();
-            archivio.salva("biblioteca.json");  // crea il file se non esiste
+            // FIX: Crea il file biblioteca.json SOLO se non esiste già
+            // In questo modo non sovrascriviamo i dati esistenti!
+            File jsonFile = new File("biblioteca/biblioteca.json");
+            if (!jsonFile.exists()) {
+                System.out.println("📁 File biblioteca.json non trovato, ne creo uno nuovo...");
+                File dir = new File("biblioteca");
+                if (!dir.exists()) {
+                    dir.mkdirs();
+                }
+                ServizioArchivio archivio = biblioteca.getArchivioService();
+                archivio.salva("biblioteca/biblioteca.json");  // crea il file vuoto
+                System.out.println("✅ File biblioteca/biblioteca.json creato");
+            } else {
+                System.out.println("✅ File biblioteca/biblioteca.json trovato, utilizzo dati esistenti");
+            }
 
         } catch (Exception e) {
             System.err.println("❌ Errore durante l'avvio dell'applicazione:");
@@ -51,4 +65,3 @@ public class Main extends Application {
         launch(args);
     }
 }
-

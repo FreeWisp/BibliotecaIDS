@@ -20,6 +20,7 @@ import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.nio.charset.StandardCharsets; //per mario linux :)
 
 public class ServizioArchivio {
 
@@ -68,7 +69,7 @@ public class ServizioArchivio {
                 prestitoRepo.listaCompleta()
         );
 
-        try (FileWriter writer = new FileWriter(file)) {
+        try (FileWriter writer = new FileWriter(file, StandardCharsets.UTF_8)) {
             gson().toJson(data, writer);
         }
     }
@@ -77,7 +78,7 @@ public class ServizioArchivio {
      * Carica l'intero archivio da file JSON
      */
     public ArchivioData carica(String file) throws IOException {
-        try (FileReader reader = new FileReader(file)) {
+        try (FileReader reader = new FileReader(file, StandardCharsets.UTF_8)) {
             return gson().fromJson(reader, ArchivioData.class);
         }
     }

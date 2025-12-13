@@ -40,7 +40,11 @@ public class InMemoriaLibroRepository implements LibroRepository {
 
     @Override
     public List<Libro> cercaTramiteIsbn(String isbn) {
-        return (List<Libro>) libri.get(isbn);
+        Libro libro = libri.get(isbn);
+        if (libro == null) {
+            return Collections.emptyList();  
+        }
+        return Collections.singletonList(libro); 
     }
 
     /**
