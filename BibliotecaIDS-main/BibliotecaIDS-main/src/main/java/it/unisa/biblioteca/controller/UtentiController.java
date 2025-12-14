@@ -104,38 +104,49 @@ public class UtentiController {
             lblStatus.setText("Inserisci un termine di ricerca");
             return;
         }
-        
+
         listaUtenti.clear();
-        
-        // Cerca per cognome
-        List<Utente> risultatiCognome = biblioteca.getUtentiService().cercaPerCognome(keyword);
-        
-        // Cerca per matricola
-        List<Utente> risultatiMatricola = biblioteca.getUtentiService().cercaPerMatricola(keyword);
-        
-        // Combina i risultati
-        for (Utente u : risultatiCognome) {
-            if (!listaUtenti.contains(u)) {
+
+        // Ottieni tutti gli utenti
+        List<Utente> tuttiUtenti = biblioteca.getUtentiService().listaOrdinata();
+
+        // Filtra per cognome, nome o matricola (case-insensitive)
+        for (Utente u : tuttiUtenti) {
+            boolean match = false;
+
+            // Cerca nel cognome
+            if (u.getCognome() != null && 
+                u.getCognome().toLowerCase().contains(keyword.toLowerCase())) {
+                match = true;
+            }
+
+            // Cerca nel nome
+            if (u.getNome() != null && 
+                u.getNome().toLowerCase().contains(keyword.toLowerCase())) {
+                match = true;
+            }
+
+            // Cerca nella matricola
+            if (u.getMatricola() != null && 
+                u.getMatricola().contains(keyword)) {
+                match = true;
+            }
+
+            // Aggiungi se c'è un match e non è già nella lista
+            if (match && !listaUtenti.contains(u)) {
                 listaUtenti.add(u);
             }
         }
-        for (Utente u : risultatiMatricola) {
-            if (!listaUtenti.contains(u)) {
-                listaUtenti.add(u);
-            }
-        }
-        
-        // Filtra in base allo stato di visualizzazione corrente
-        if (!mostraDisattivati) {
-            // Se stiamo mostrando attivi, filtra solo attivi
-            listaUtenti.removeIf(u -> !u.isAttivo());
-        } else {
-            // Se stiamo mostrando disattivati, filtra solo disattivati
-            listaUtenti.removeIf(Utente::isAttivo);
-        }
-        
-        lblStatus.setText("Trovati " + listaUtenti.size() + " risultati per: " + keyword);
+    
+    // Filtra in base allo stato di visualizzazione corrente
+    if (!mostraDisattivati) {
+        listaUtenti.removeIf(u -> !u.isAttivo());
+    } else {
+        listaUtenti.removeIf(Utente::isAttivo);
     }
+    
+    lblStatus.setText("Trovati " + listaUtenti.size() + " risultati per: " + keyword);
+}
     
     /**
      * Toggle tra mostra attivi e mostra disattivati

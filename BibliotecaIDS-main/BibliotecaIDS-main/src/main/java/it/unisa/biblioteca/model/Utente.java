@@ -10,6 +10,7 @@
  */
 
 package it.unisa.biblioteca.model;
+import java.util.Objects;
 
 /**
  * @class Utente
@@ -39,7 +40,7 @@ public class Utente {
         this.cognome = cognome;
         this.matricola = matricola;
         this.email = email;
-        this.attivo = attivo;
+        this.attivo = true;
     }
 
     /**
@@ -132,5 +133,18 @@ public class Utente {
                "Nome:" + nome + " \n" + 
                "Matricola:" + matricola + "\n" + 
                "Email universitaria " + email;
+    }
+    // metodo per far funzionare la ricerca
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Utente utente = (Utente) o;
+        return Objects.equals(matricola, utente.matricola);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(matricola);
     }
 }
