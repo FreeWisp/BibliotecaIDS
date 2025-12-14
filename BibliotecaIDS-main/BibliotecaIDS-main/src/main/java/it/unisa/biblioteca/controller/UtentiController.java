@@ -2,15 +2,13 @@ package it.unisa.biblioteca.controller;
 
 import it.unisa.biblioteca.model.Biblioteca;
 import it.unisa.biblioteca.model.Utente;
-import it.unisa.biblioteca.servizi.ServizioArchivio;
-import java.io.File;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class UtentiController {
     
@@ -24,17 +22,15 @@ public class UtentiController {
     @FXML private Label lblFormTitle;
     @FXML private Label lblStatus;
     @FXML private Button btnModifica;
-    @FXML private Button btnElimina;
-    @FXML private Button btnToggleAttivo;
+    @FXML private Button btnDisattiva;
+    @FXML private Button btnMostraDisattivati;  // Rinominato da btnMostraTutti
     
     private Biblioteca biblioteca;
     private MainController mainController;
     private ObservableList<Utente> listaUtenti;
     private Utente utenteSelezionato;
     private boolean modalitaModifica = false;
-
-    // Servizio archivio per salvataggi su file
-    private ServizioArchivio archivio;
+    private boolean mostraDisattivati = false;  // Flag per sapere quale lista mostrare
     
     @FXML
     private void initialize() {
@@ -46,57 +42,59 @@ public class UtentiController {
             (obs, oldSelection, newSelection) -> {
                 if (newSelection != null) {
                     btnModifica.setDisable(false);
-                    btnElimina.setDisable(false);
-                    btnToggleAttivo.setDisable(false);
+                    btnDisattiva.setDisable(false);
+                    // Aggiorna il testo del bottone in base allo stato dell'utente
+                    aggiornaTestoBottoneDisattiva(newSelection);
                 } else {
                     btnModifica.setDisable(true);
-                    btnElimina.setDisable(true);
-                    btnToggleAttivo.setDisable(true);
+                    btnDisattiva.setDisable(true);
                 }
             }
         );
         
         btnModifica.setDisable(true);
-        btnElimina.setDisable(true);
-        btnToggleAttivo.setDisable(true);
+        btnDisattiva.setDisable(true);
     }
     
     public void setBiblioteca(Biblioteca biblioteca) {
         this.biblioteca = biblioteca;
-        caricaDatiJSON(); // aggiungi questo metodo
-        caricaUtenti();
+        caricaUtentiAttivi();  // Di default mostra solo attivi
     }
-
-    private void caricaDatiJSON() {
-        try {
-            File file = new File("biblioteca/biblioteca.json");
-            if (file.exists()) {
-                ServizioArchivio.ArchivioData dati = biblioteca.getArchivioService().carica("biblioteca/biblioteca.json");
-                biblioteca.getArchivioService().aggiornaBiblioteca(dati);
-            }
-        } catch (Exception e) {
-            lblStatus.setText("❌ Errore caricamento JSON: " + e.getMessage());
-        }
-    }
-
     
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
     }
-
-    // Setter archivio (due nomi per compatibilità)
-    public void setServizioArchivio(ServizioArchivio archivio) {
-        this.archivio = archivio;
-    }
-    public void setArchivio(ServizioArchivio archivio) {
-        this.archivio = archivio;
+    
+    /**
+     * Carica solo gli utenti ATTIVI
+     */
+    private void caricaUtentiAttivi() {
+        List<Utente> tuttiUtenti = biblioteca.getUtentiService().listaOrdinata();
+        List<Utente> utentiAttivi = tuttiUtenti.stream()
+                .filter(Utente::isAttivo)
+                .collect(Collectors.toList());
+        
+        listaUtenti.clear();
+        listaUtenti.addAll(utentiAttivi);
+        mostraDisattivati = false;
+        btnMostraDisattivati.setText("📋 Mostra Disattivati");
+        lblStatus.setText("Caricati " + utentiAttivi.size() + " utenti attivi");
     }
     
-    private void caricaUtenti() {
-        List<Utente> utenti = biblioteca.getUtentiService().listaOrdinata();
+    /**
+     * Carica solo gli utenti DISATTIVATI
+     */
+    private void caricaUtentiDisattivati() {
+        List<Utente> tuttiUtenti = biblioteca.getUtentiService().listaOrdinata();
+        List<Utente> utentiDisattivati = tuttiUtenti.stream()
+                .filter(u -> !u.isAttivo())
+                .collect(Collectors.toList());
+        
         listaUtenti.clear();
-        listaUtenti.addAll(utenti);
-        lblStatus.setText("Caricati " + utenti.size() + " utenti");
+        listaUtenti.addAll(utentiDisattivati);
+        mostraDisattivati = true;
+        btnMostraDisattivati.setText("✅ Mostra Attivi");
+        lblStatus.setText("Caricati " + utentiDisattivati.size() + " utenti disattivati");
     }
     
     @FXML
@@ -111,68 +109,105 @@ public class UtentiController {
         
         // Cerca per cognome
         List<Utente> risultatiCognome = biblioteca.getUtentiService().cercaPerCognome(keyword);
-        listaUtenti.addAll(risultatiCognome);
         
         // Cerca per matricola
         List<Utente> risultatiMatricola = biblioteca.getUtentiService().cercaPerMatricola(keyword);
+        
+        // Combina i risultati
+        for (Utente u : risultatiCognome) {
+            if (!listaUtenti.contains(u)) {
+                listaUtenti.add(u);
+            }
+        }
         for (Utente u : risultatiMatricola) {
             if (!listaUtenti.contains(u)) {
                 listaUtenti.add(u);
             }
         }
         
+        // Filtra in base allo stato di visualizzazione corrente
+        if (!mostraDisattivati) {
+            // Se stiamo mostrando attivi, filtra solo attivi
+            listaUtenti.removeIf(u -> !u.isAttivo());
+        } else {
+            // Se stiamo mostrando disattivati, filtra solo disattivati
+            listaUtenti.removeIf(Utente::isAttivo);
+        }
+        
         lblStatus.setText("Trovati " + listaUtenti.size() + " risultati per: " + keyword);
     }
     
+    /**
+     * Toggle tra mostra attivi e mostra disattivati
+     */
     @FXML
-    private void handleMostraTutti() {
+    private void handleMostraDisattivati() {
         txtCerca.clear();
-        caricaUtenti();
+        if (mostraDisattivati) {
+            caricaUtentiAttivi();
+        } else {
+            caricaUtentiDisattivati();
+        }
     }
     
     @FXML
-private void handleSalva() {
-    if (!validaCampi()) return;
+    private void handleSalva() {
+        // Validazione
+        if (!validaCampi()) {
+            return;
+        }
+        
+        try {
+            String nome = txtNome.getText().trim();
+            String cognome = txtCognome.getText().trim();
+            String matricola = txtMatricola.getText().trim();
+            String email = txtEmail.getText().trim();
+            boolean attivo = chkAttivo.isSelected();
+            
+            if (modalitaModifica && utenteSelezionato != null) {
+                // Modifica utente esistente
+                utenteSelezionato.setNome(nome);
+                utenteSelezionato.setCognome(cognome);
+                utenteSelezionato.setMatricola(matricola);
+                utenteSelezionato.setEmail(email);
+                utenteSelezionato.setAttivo(attivo);
+                
+                biblioteca.getUtentiService().modifica(utenteSelezionato);
+                lblStatus.setText("✅ Utente modificato con successo!");
+                
+            } else {
+                // Controlla se la matricola esiste già
+                List<Utente> esistenti = biblioteca.getUtentiService().cercaPerMatricola(matricola);
+                if (esistenti != null && !esistenti.isEmpty()) {
+                    mostraErrore("Matricola già esistente! Ogni utente deve avere una matricola unica.");
+                    return;
+                }
 
-    try {
-        String nome = txtNome.getText().trim();
-        String cognome = txtCognome.getText().trim();
-        String matricola = txtMatricola.getText().trim();
-        String email = txtEmail.getText().trim();
-        boolean attivo = chkAttivo.isSelected();
-
-        if (modalitaModifica && utenteSelezionato != null) {
-            utenteSelezionato.setNome(nome);
-            utenteSelezionato.setCognome(cognome);
-            utenteSelezionato.setMatricola(matricola);
-            utenteSelezionato.setEmail(email);
-            utenteSelezionato.setAttivo(attivo);
-
-            biblioteca.getUtentiService().modifica(utenteSelezionato);
-            lblStatus.setText("✅ Utente modificato con successo!");
-        } else {
-            List<Utente> esistenti = biblioteca.getUtentiService().cercaPerMatricola(matricola);
-            if (esistenti != null && !esistenti.isEmpty()) {
-                mostraErrore("Matricola già esistente!");
-                return;
+                // Aggiungi nuovo utente
+                Utente nuovoUtente = new Utente(nome, cognome, matricola, email);
+                nuovoUtente.setAttivo(attivo);
+                biblioteca.getUtentiService().aggiungi(nuovoUtente);
+                lblStatus.setText("✅ Utente aggiunto con successo!");
             }
 
-            Utente nuovoUtente = new Utente(nome, cognome, matricola, email);
-            nuovoUtente.setAttivo(attivo);
-            biblioteca.getUtentiService().aggiungi(nuovoUtente);
-            lblStatus.setText("✅ Utente aggiunto con successo!");
+            // Ricarica la lista appropriata
+            if (mostraDisattivati) {
+                caricaUtentiDisattivati();
+            } else {
+                caricaUtentiAttivi();
+            }
+            
+            pulisciForm();
+            
+            // Aggiorna statistiche nel main
+            if (mainController != null) {
+                mainController.aggiornaStatisticheDashboard();
+            }
+            
+        } catch (Exception e) {
+            mostraErrore("Errore durante il salvataggio: " + e.getMessage());
         }
-
-        caricaUtenti();
-        pulisciForm();
-        salvaJSON();
-
-        if (mainController != null) mainController.aggiornaStatisticheDashboard();
-
-    } catch (Exception e) {
-        mostraErrore("Errore durante il salvataggio: " + e.getMessage());
     }
-}
     
     @FXML
     private void handleModifica() {
@@ -194,46 +229,63 @@ private void handleSalva() {
         lblStatus.setText("Modalità modifica attiva");
     }
     
+    /**
+     * Disattiva o riattiva un utente (non lo elimina mai!)
+     */
     @FXML
-    private void handleElimina() {
-        Utente utente = tblUtenti.getSelectionModel().getSelectedItem();
-        if (utente == null) {
-            lblStatus.setText("⚠️ Seleziona un utente da eliminare");
-            return;
-        }
-
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Conferma Eliminazione");
-        alert.setHeaderText("Eliminare l'utente?");
-        alert.setContentText("Sei sicuro di voler eliminare " + utente.getNome() + " " + utente.getCognome() + "?");
-        Optional<ButtonType> result = alert.showAndWait();
-
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            biblioteca.getUtentiService().elimina(utente.getMatricola());
-            caricaUtenti();
-            lblStatus.setText("✅ Utente eliminato!");
-            salvaJSON();
-
-            if (mainController != null) mainController.aggiornaStatisticheDashboard();
-        }
-}
-    
-    @FXML
-    private void handleToggleAttivo() {
+    private void handleDisattiva() {
         Utente utente = tblUtenti.getSelectionModel().getSelectedItem();
         if (utente == null) {
             lblStatus.setText("⚠️ Seleziona un utente");
             return;
         }
-
-        utente.setAttivo(!utente.isAttivo());
-        biblioteca.getUtentiService().modifica(utente);
-        tblUtenti.refresh();
-        salvaJSON();
-
-        String stato = utente.isAttivo() ? "attivato" : "disattivato";
-        lblStatus.setText("✅ Utente " + stato + "!");
-}
+        
+        String azione = utente.isAttivo() ? "disattivare" : "riattivare";
+        String azionePassata = utente.isAttivo() ? "disattivato" : "riattivato";
+        
+        // Conferma azione
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Conferma " + azione.substring(0, 1).toUpperCase() + azione.substring(1));
+        alert.setHeaderText(azione.substring(0, 1).toUpperCase() + azione.substring(1) + " l'utente?");
+        alert.setContentText("Sei sicuro di voler " + azione + " " + 
+                           utente.getNome() + " " + utente.getCognome() + "?");
+        
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                // Inverti lo stato
+                utente.setAttivo(!utente.isAttivo());
+                biblioteca.getUtentiService().modifica(utente);
+                
+                // Ricarica la lista appropriata
+                if (mostraDisattivati) {
+                    caricaUtentiDisattivati();
+                } else {
+                    caricaUtentiAttivi();
+                }
+                
+                lblStatus.setText("✅ Utente " + azionePassata + "!");
+                
+                if (mainController != null) {
+                    mainController.aggiornaStatisticheDashboard();
+                }
+            }
+        });
+    }
+    
+    /**
+     * Aggiorna il testo del bottone Disattiva/Riattiva in base allo stato dell'utente
+     */
+    private void aggiornaTestoBottoneDisattiva(Utente utente) {
+        if (utente != null) {
+            if (utente.isAttivo()) {
+                btnDisattiva.setText("🔒 Disattiva");
+                btnDisattiva.setStyle("-fx-background-color: #e74c3c; -fx-text-fill: white;");
+            } else {
+                btnDisattiva.setText("✅ Riattiva");
+                btnDisattiva.setStyle("-fx-background-color: #27ae60; -fx-text-fill: white;");
+            }
+        }
+    }
     
     @FXML
     private void handlePulisci() {
@@ -284,27 +336,4 @@ private void handleSalva() {
         alert.showAndWait();
         lblStatus.setText("❌ " + messaggio);
     }
-
-    // Salvataggio silenzioso con gestione eccezione
-    private void salvaArchivioSilenzioso() {
-        if (archivio == null) return;
-        try {
-            archivio.salva("biblioteca.json");
-        } catch (Exception e) {
-            mostraErrore("Errore salvataggio archivio: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-    
-    // Metodo per salvare JSON
-    private void salvaJSON() {
-        try {
-            File dir = new File("biblioteca");
-            if (!dir.exists()) dir.mkdirs();
-            biblioteca.getArchivioService().salva("biblioteca/biblioteca.json");
-        } catch (Exception e) {
-            lblStatus.setText("❌ Errore salvataggio JSON: " + e.getMessage());
-        }
-}
-    
 }
