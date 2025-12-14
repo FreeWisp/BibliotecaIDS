@@ -55,14 +55,14 @@ public class InMemoriaLibroRepository implements LibroRepository {
     @Override
     public List<Libro> cercaTramiteTitolo(String titolo) {
         return libri.values().stream()
-                .filter(l -> l.getTitolo().equalsIgnoreCase(titolo))
+                .filter(l -> l.getTitolo().toLowerCase().contains(titolo.toLowerCase()))
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<Libro> cercaTramiteAutore(String autore) {
         return libri.values().stream()
-                .filter(l -> l.getAutore().equalsIgnoreCase(autore))
+                .filter(l -> l.getAutore().toLowerCase().contains(autore.toLowerCase()))
                 .collect(Collectors.toList());
     }
 
