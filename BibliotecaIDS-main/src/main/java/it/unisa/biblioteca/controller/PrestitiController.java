@@ -54,11 +54,9 @@ public class PrestitiController {
         // Listener selezione tabella
         tblPrestiti.getSelectionModel().selectedItemProperty().addListener(
             (obs, oldSelection, newSelection) -> {
-                // Un prestito è attivo se la data restituzione è nel futuro
-                boolean isAttivo = newSelection != null && 
-                    newSelection.getDataRestituzione() != null &&
-                    newSelection.getDataRestituzione().isAfter(LocalDate.now());
-                btnRestituzione.setDisable(!isAttivo);
+                boolean isRestituibile = newSelection != null && 
+                    newSelection.getDataRestituzione() != null;  
+                btnRestituzione.setDisable(!isRestituibile);
             }
         );
         

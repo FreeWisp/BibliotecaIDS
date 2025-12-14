@@ -1,6 +1,7 @@
 package it.unisa.biblioteca.controller;
 
 import it.unisa.biblioteca.model.Biblioteca;
+import it.unisa.biblioteca.model.Utente;
 import it.unisa.biblioteca.servizi.ServizioArchivio;
 import it.unisa.biblioteca.servizi.ServizioArchivio.ArchivioData;
 import javafx.fxml.FXML;
@@ -82,7 +83,9 @@ public class MainController {
             biblioteca.getLibriService().listaOrdinataTitolo().size()
         ));
         lblTotaleUtenti.setText(String.valueOf(
-            biblioteca.getUtentiService().listaOrdinata().size()
+            biblioteca.getUtentiService().listaOrdinata().stream()
+                .filter(Utente::isAttivo) 
+                .count()
         ));
         lblPrestitiAttivi.setText(String.valueOf(
             biblioteca.getPrestitiService().prestitiAttiviOrdinati().size()
