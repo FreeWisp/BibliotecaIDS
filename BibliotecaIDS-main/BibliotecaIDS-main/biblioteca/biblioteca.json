@@ -19,23 +19,17 @@
       "autore": "Rami Abou Jamous",
       "isbn": "0087554",
       "annoPubblicazione": 2023,
-      "numCopie": 4
+      "numCopie": 3
     }
   ],
   "utenti": [
     {
       "nome": "mario",
       "cognome": "coppola",
-      "matricola": "1235678497",
-      "email": "mario.coppola@studenti.unisa.it",
+      "matricola": "1234567",
+      "email": "@@",
       "attivo": true
     }
   ],
-  "prestiti": [
-    {
-      "matricolaUtente": "1235678497",
-      "isbnLibro": "0088663",
-      "dataRestituzione": "2025-12-27"
-    }
-  ]
+  "prestiti": []
 }

@@ -79,20 +79,22 @@ public class ServizioPrestiti{
 
 
     public boolean registraRestituzione(Prestito p) {
-    List<Libro> libriTrovati = libroReposit.cercaTramiteIsbn(p.getIsbnLibro());
-    if (libriTrovati == null || libriTrovati.isEmpty()) {
-        return false;
+        // Cerca libro
+        List<Libro> libriTrovati = libroReposit.cercaTramiteIsbn(p.getIsbnLibro());
+        if (libriTrovati == null || libriTrovati.isEmpty()) {
+            return false;
+        }
+        Libro l = libriTrovati.get(0);
+
+        // ✅ RIMUOVI il prestito dalla lista invece di modificarlo
+        prestitoReposit.eliminaPrestito(p);
+
+        // Incrementa le copie disponibili
+        l.setNumCopie(l.getNumCopie() + 1);
+        libroReposit.modificaLibro(l);
+
+        return true;
     }
-    Libro l = libriTrovati.get(0);
-    
-    p.setDataResituzione(true); 
-    prestitoReposit.modificaPrestito(p);
-    
-    l.setNumCopie(l.getNumCopie() + 1);
-    libroReposit.modificaLibro(l);
-    
-    return true;
-}
 
     public List<Prestito> prestitiAttiviOrdinati() {
         return prestitoReposit.cercaPrestitiAttiviOrdinatiPerDataRestituzione();
