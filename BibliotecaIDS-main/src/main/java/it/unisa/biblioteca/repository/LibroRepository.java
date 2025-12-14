@@ -76,6 +76,16 @@ public interface LibroRepository {
      * @return Lista di libri ordinata per titolo.
      */
     List<Libro> listaOrdinataPerTitolo();
+    
+    /**
+    * Restituisce tutti i libri presenti.
+     */
+    List<Libro> listaCompleta();
+
+    /**
+    * Rimuove tutti i libri.
+    */
+    void svuota();
 }
 
 

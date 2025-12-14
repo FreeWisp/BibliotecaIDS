@@ -48,7 +48,7 @@ public class InMemoriaUtenteRepository implements UtenteRepository {
     @Override
     public List<Utente> cercaPerCognome(String cognome) {
         return utenti.values().stream()
-                .filter(u -> u.getCognome().equalsIgnoreCase(cognome))
+                .filter(u -> u.getCognome().toLowerCase().contains(cognome.toLowerCase()))
                 .collect(Collectors.toList());
     }
 
@@ -59,5 +59,15 @@ public class InMemoriaUtenteRepository implements UtenteRepository {
                         .comparing(Utente::getCognome)
                         .thenComparing(Utente::getNome))
                 .collect(Collectors.toList());
+    }
+    
+    @Override
+    public List<Utente> listaCompleta() {
+        return new ArrayList<Utente>(utenti.values());
+    }
+
+    @Override
+    public void svuota() {
+        utenti.clear();
     }
 }

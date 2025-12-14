@@ -40,7 +40,11 @@ public class InMemoriaLibroRepository implements LibroRepository {
 
     @Override
     public List<Libro> cercaTramiteIsbn(String isbn) {
-        return (List<Libro>) libri.get(isbn);
+        Libro libro = libri.get(isbn);
+        if (libro == null) {
+            return Collections.emptyList();  
+        }
+        return Collections.singletonList(libro); 
     }
 
     /**
@@ -51,14 +55,14 @@ public class InMemoriaLibroRepository implements LibroRepository {
     @Override
     public List<Libro> cercaTramiteTitolo(String titolo) {
         return libri.values().stream()
-                .filter(l -> l.getTitolo().equalsIgnoreCase(titolo))
+                .filter(l -> l.getTitolo().toLowerCase().contains(titolo.toLowerCase()))
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<Libro> cercaTramiteAutore(String autore) {
         return libri.values().stream()
-                .filter(l -> l.getAutore().equalsIgnoreCase(autore))
+                .filter(l -> l.getAutore().toLowerCase().contains(autore.toLowerCase()))
                 .collect(Collectors.toList());
     }
 
@@ -68,5 +72,16 @@ public class InMemoriaLibroRepository implements LibroRepository {
                 .sorted(Comparator.comparing(Libro::getTitolo))
                 .collect(Collectors.toList());
     }
+    
+    @Override
+    public List<Libro> listaCompleta() {
+        return new ArrayList<Libro>(libri.values());
+    }
+
+    @Override
+    public void svuota() {
+        libri.clear();
+    }
+
 }
 

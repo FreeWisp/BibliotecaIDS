@@ -44,7 +44,9 @@
                 <HBox spacing="10" alignment="CENTER_LEFT">
                     <TextField fx:id="txtCerca" promptText="Cerca per nome, cognome o matricola..." HBox.hgrow="ALWAYS"/>
                     <Button text="🔍 Cerca" onAction="#handleCerca" style="-fx-background-color: #9b59b6; -fx-text-fill: white;"/>
-                    <Button text="Mostra Tutti" onAction="#handleMostraTutti" style="-fx-background-color: #95a5a6; -fx-text-fill: white;"/>
+                    <!-- MODIFICATO: Mostra Disattivati invece di Mostra Tutti -->
+                    <Button fx:id="btnMostraDisattivati" text="📋 Mostra Disattivati" onAction="#handleMostraDisattivati" 
+                            style="-fx-background-color: #95a5a6; -fx-text-fill: white;"/>
                 </HBox>
                 
                 <!-- Tabella -->
@@ -65,9 +67,10 @@
                                 <PropertyValueFactory property="matricola"/>
                             </cellValueFactory>
                         </TableColumn>
+                        <!-- CORRETTO: property="email" invece di "mail" -->
                         <TableColumn text="Email" prefWidth="180">
                             <cellValueFactory>
-                                <PropertyValueFactory property="mail"/>
+                                <PropertyValueFactory property="email"/>
                             </cellValueFactory>
                         </TableColumn>
                         <TableColumn text="Attivo" prefWidth="70">
@@ -78,15 +81,18 @@
                     </columns>
                 </TableView>
                 
-                <!-- Bottoni azioni -->
+                <!-- Bottoni azioni - RIMOSSO Elimina, sostituito con Disattiva -->
                 <HBox spacing="10">
                     <Button text="✏️ Modifica" fx:id="btnModifica" onAction="#handleModifica" 
                             style="-fx-background-color: #f39c12; -fx-text-fill: white;"/>
-                    <Button text="🗑️ Elimina" fx:id="btnElimina" onAction="#handleElimina" 
+                    <!-- MODIFICATO: Disattiva invece di Elimina -->
+                    <Button text="🔒 Disattiva" fx:id="btnDisattiva" onAction="#handleDisattiva" 
                             style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
                     <Region HBox.hgrow="ALWAYS"/>
-                    <Button text="🔒 Disattiva/Attiva" fx:id="btnToggleAttivo" onAction="#handleToggleAttivo" 
-                            style="-fx-background-color: #34495e; -fx-text-fill: white;"/>
+                    <!-- Informazione utile -->
+                    <Label text="💡 Usa Disattiva per nascondere utenti dalla lista" 
+                           style="-fx-text-fill: #7f8c8d; -fx-font-size: 11px;"
+                           alignment="CENTER_RIGHT"/>
                 </HBox>
             </VBox>
             

@@ -83,7 +83,17 @@ public class Biblioteca {
         this.libriService = new ServizioGestioneLibri(libroRepository);
         this.utentiService = new ServizioGestioneUtenti(utenteRepository);
         this.prestitiService = new ServizioPrestiti(prestitoRepository, utenteRepository, libroRepository);
-        this.archivioService = new ServizioArchivio(libroRepository, utenteRepository, prestitoRepository);
+        this.archivioService = new ServizioArchivio(this);
+        
+        //  Carica i dati dal file all'avvio (se esiste)
+         try {
+             var dati = archivioService.carica("biblioteca.json");
+             if (dati != null) {
+                 archivioService.aggiornaBiblioteca(dati);
+             }
+         } catch (Exception e) {
+             System.out.println("Nessun archivio trovato, si parte con dati vuoti.");
+         }
     }
 
     // Getter collezioni
@@ -158,4 +168,19 @@ public class Biblioteca {
     public ServizioArchivio getArchivioService() { 
         return archivioService;
     }
+    
+     /** GETTER dei repository (aggiunti ora) */
+    public InMemoriaLibroRepository getLibroRepository() {
+        return libroRepository;
+    }
+
+    public InMemoriaUtenteRepository getUtenteRepository() {
+        return utenteRepository;
+    }
+
+    public InMemoriaPrestitoRepository getPrestitoRepository() {
+        return prestitoRepository;
+    }
+    
+    
 }

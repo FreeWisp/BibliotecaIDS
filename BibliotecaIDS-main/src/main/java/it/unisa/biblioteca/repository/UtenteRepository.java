@@ -69,4 +69,16 @@ public interface UtenteRepository {
      */
     List<Utente> listaOrdinataPerCognomeNome();
     
+    
+    /**
+    * Restituisce tutti gli utenti presenti.
+    */
+    List<Utente> listaCompleta();
+
+    /**
+     * Rimuove tutti gli utenti.
+     */
+    void svuota();
+
+    
 }

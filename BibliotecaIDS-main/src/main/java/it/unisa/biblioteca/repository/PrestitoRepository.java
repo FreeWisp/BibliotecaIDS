@@ -79,7 +79,16 @@ public interface PrestitoRepository {
      * @return Numero di prestiti attivi dell'utente.
      */
     int contoPrestitiAttiviUtente(String matricola);
-    
-    
+
+     /**
+     * Restituisce tutti i prestiti, attivi e non.
+     */
+    List<Prestito> listaCompleta();
+
+    /**
+     * Rimuove tutti i prestiti.
+     */
+    void svuota();
+
     
 }

@@ -4,6 +4,8 @@ import it.unisa.biblioteca.model.Biblioteca;
 import it.unisa.biblioteca.model.Libro;
 import it.unisa.biblioteca.model.Prestito;
 import it.unisa.biblioteca.model.Utente;
+import it.unisa.biblioteca.servizi.ServizioArchivio;
+import java.io.File;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -37,6 +39,9 @@ public class PrestitiController {
     private MainController mainController;
     private ObservableList<Prestito> listaPrestiti;
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    // Servizio archivio per salvataggi su file
+    private ServizioArchivio archivio;
     
     @FXML
     private void initialize() {
@@ -78,22 +83,43 @@ public class PrestitiController {
         );
         
         // Listener durata
-        // Listener durata
         txtDurataPrestito.textProperty().addListener((obs, old, val) -> aggiornaInfoPrestito());
         
         btnRestituzione.setDisable(true);
     }
     
     public void setBiblioteca(Biblioteca biblioteca) {
-        this.biblioteca = biblioteca;
-        caricaPrestiti();
-        caricaComboLibri();
-        caricaComboUtenti();
-        aggiornaInfoPrestito();
+      this.biblioteca = biblioteca;
+      caricaDatiJSON(); // aggiungi questo metodo
+      caricaPrestiti();
+      caricaComboLibri();
+      caricaComboUtenti();
+      aggiornaInfoPrestito();
+  }
+
+    private void caricaDatiJSON() {
+        try {
+            File file = new File("biblioteca/biblioteca.json");
+            if (file.exists()) {
+                ServizioArchivio.ArchivioData dati = biblioteca.getArchivioService().carica("biblioteca/biblioteca.json");
+                biblioteca.getArchivioService().aggiornaBiblioteca(dati);
+            }
+        } catch (Exception e) {
+            lblStatus.setText("❌ Errore caricamento JSON: " + e.getMessage());
+        }
     }
+
     
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
+    }
+
+    // Setter archivio (due nomi per compatibilità)
+    public void setServizioArchivio(ServizioArchivio archivio) {
+        this.archivio = archivio;
+    }
+    public void setArchivio(ServizioArchivio archivio) {
+        this.archivio = archivio;
     }
     
     @SuppressWarnings("unchecked")
@@ -228,7 +254,7 @@ public class PrestitiController {
     private void handleNuovoPrestito() {
         Libro libro = cmbLibri.getSelectionModel().getSelectedItem();
         Utente utente = cmbUtenti.getSelectionModel().getSelectedItem();
-        
+
         if (libro == null) {
             mostraErrore("Seleziona un libro!");
             return;
@@ -237,28 +263,27 @@ public class PrestitiController {
             mostraErrore("Seleziona un utente!");
             return;
         }
-        
+
         int giorni = getDurataSelezionata();
         LocalDate dataRestituzione = LocalDate.now().plusDays(giorni);
-        
+
         try {
             boolean successo = biblioteca.getPrestitiService().registraPrestito(
                 utente.getMatricola(),
                 libro.getIsbn(),
                 dataRestituzione
             );
-            
+
             if (successo) {
                 lblStatus.setText("✅ Prestito registrato con successo!");
                 caricaPrestiti();
                 handlePulisci();
-                
-                if (mainController != null) {
-                    mainController.aggiornaStatisticheDashboard();
-                }
-                
-                mostraInfo("Prestito registrato!", 
-                    "Il libro \"" + libro.getTitolo() + "\" è stato prestato a " + 
+                salvaJSON();
+
+                if (mainController != null) mainController.aggiornaStatisticheDashboard();
+
+                mostraInfo("Prestito registrato!",
+                    "Il libro \"" + libro.getTitolo() + "\" è stato prestato a " +
                     utente.getNome() + " " + utente.getCognome());
             } else {
                 mostraErrore("Impossibile registrare il prestito!\n" +
@@ -267,7 +292,7 @@ public class PrestitiController {
         } catch (Exception e) {
             mostraErrore("Errore: " + e.getMessage());
         }
-    }
+}
     
     @FXML
     private void handleRestituzione() {
@@ -276,42 +301,38 @@ public class PrestitiController {
             lblStatus.setText("⚠️ Seleziona un prestito");
             return;
         }
-        
-        // Trova libro e utente per il messaggio
+
         List<Libro> libri = biblioteca.getLibriService().cercaPerIsbn(prestito.getIsbnLibro());
         List<Utente> utenti = biblioteca.getUtentiService().cercaPerMatricola(prestito.getMatricolaUtente());
-        
+
         if (libri.isEmpty() || utenti.isEmpty()) {
             mostraErrore("Errore: dati non trovati");
             return;
         }
-        
+
         Libro libro = libri.get(0);
         Utente utente = utenti.get(0);
-        
-        // Conferma restituzione
+
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Conferma Restituzione");
         alert.setHeaderText("Registrare la restituzione?");
         alert.setContentText("Libro: " + libro.getTitolo() + "\n" +
-                           "Utente: " + utente.getNome() + " " + utente.getCognome());
-        
+                            "Utente: " + utente.getNome() + " " + utente.getCognome());
+
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             boolean successo = biblioteca.getPrestitiService().registraRestituzione(prestito);
-            
             if (successo) {
                 caricaPrestiti();
                 lblStatus.setText("✅ Restituzione registrata!");
-                
-                if (mainController != null) {
-                    mainController.aggiornaStatisticheDashboard();
-                }
+                salvaJSON();
+
+                if (mainController != null) mainController.aggiornaStatisticheDashboard();
             } else {
                 mostraErrore("Errore durante la restituzione");
             }
         }
-    }
+}
     
     @FXML
     private void handleFiltraTutti() {
@@ -346,6 +367,17 @@ public class PrestitiController {
         aggiornaInfoPrestito();
     }
     
+    // Salvataggio silenzioso con gestione eccezione
+    private void salvaArchivioSilenzioso() {
+        if (archivio == null) return;
+        try {
+            archivio.salva("biblioteca.json");
+        } catch (Exception e) {
+            mostraErrore("Errore salvataggio archivio: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    
     private void mostraErrore(String messaggio) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Errore");
@@ -362,4 +394,16 @@ public class PrestitiController {
         alert.setContentText(messaggio);
         alert.showAndWait();
     }
+    
+    // Metodo per salvare JSON
+    private void salvaJSON() {
+        try {
+            File dir = new File("biblioteca");
+            if (!dir.exists()) dir.mkdirs();
+            biblioteca.getArchivioService().salva("biblioteca/biblioteca.json");
+        } catch (Exception e) {
+            lblStatus.setText("❌ Errore salvataggio JSON: " + e.getMessage());
+        }
+    }
+
 }

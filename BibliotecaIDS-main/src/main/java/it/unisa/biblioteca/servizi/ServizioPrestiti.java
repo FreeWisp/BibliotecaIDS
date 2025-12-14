@@ -38,37 +38,58 @@ public class ServizioPrestiti{
     
     
     public boolean registraPrestito(String matricola, String isbn, LocalDate dataRestituzione) {
-
-        Utente u = (Utente) utenteReposit.cercaPerMatricola(matricola);
-        Libro l = (Libro)libroReposit.cercaTramiteIsbn(isbn);
-
-        if (u == null || l == null)
-            return false;
-
-        if (l.getNumCopie() <= 0)
-            return false;
-
-        if (prestitoReposit.contoPrestitiAttiviUtente(matricola) >= 3)
-            return false;
-
-        Prestito p = new Prestito(matricola, isbn, dataRestituzione);
-        prestitoReposit.inserisciPrestito(p);
-
-        l.setNumCopie(l.getNumCopie() - 1);
-        libroReposit.modificaLibro(l);
-
-        return true;
+    // Cerca utente - il metodo restituisce una Lista
+    List<Utente> utentiTrovati = utenteReposit.cercaPerMatricola(matricola);
+    if (utentiTrovati == null || utentiTrovati.isEmpty()) {
+        return false;
+    }
+    Utente u = utentiTrovati.get(0);  // Prende il primo risultato
+    
+    // Cerca libro - il metodo restituisce una Lista
+    List<Libro> libriTrovati = libroReposit.cercaTramiteIsbn(isbn);
+    if (libriTrovati == null || libriTrovati.isEmpty()) {
+        return false;
+    }
+    Libro l = libriTrovati.get(0);  // Prende il primo risultato
+    
+    // Verifica disponibilità copie
+    if (l.getNumCopie() <= 0) {
+        return false;
+    }
+    
+    // Verifica limite prestiti utente
+    if (prestitoReposit.contoPrestitiAttiviUtente(matricola) >= 3) {
+        return false;
+    }
+    
+    // Registra prestito
+    Prestito p = new Prestito(matricola, isbn, dataRestituzione);
+    prestitoReposit.inserisciPrestito(p);
+    
+    // Decrementa copie disponibili
+    l.setNumCopie(l.getNumCopie() - 1);
+    libroReposit.modificaLibro(l);
+    
+    return true;
+}
+    
+    public PrestitoRepository getRepository() {
+    return prestitoReposit;
     }
 
-   public boolean registraRestituzione(Prestito p) {
-        Libro l;
-        l = (Libro) libroReposit.cercaTramiteIsbn(p.getIsbnLibro());
-        if (l == null) 
+
+    public boolean registraRestituzione(Prestito p) {
+        // Cerca libro
+        List<Libro> libriTrovati = libroReposit.cercaTramiteIsbn(p.getIsbnLibro());
+        if (libriTrovati == null || libriTrovati.isEmpty()) {
             return false;
+        }
+        Libro l = libriTrovati.get(0);
 
-        p.setDataResituzione(true);
-        prestitoReposit.modificaPrestito(p);
+        // ✅ RIMUOVI il prestito dalla lista invece di modificarlo
+        prestitoReposit.eliminaPrestito(p);
 
+        // Incrementa le copie disponibili
         l.setNumCopie(l.getNumCopie() + 1);
         libroReposit.modificaLibro(l);
 

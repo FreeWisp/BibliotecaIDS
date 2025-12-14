@@ -1,0 +1,23 @@
+# Build output
+target/
+
+# IDE configuration
+nbactions.xml
+nb-configuration.xml
+.idea/
+*.iml
+
+# Runtime data
+biblioteca.json
+biblioteca/biblioteca.json
+
+# Compiled files
+*.class
+*.jar
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Maven
+dependency-reduced-pom.xml

@@ -71,4 +71,15 @@ public class InMemoriaPrestitoRepository implements PrestitoRepository {
     public void modificaPrestito(Prestito prestito) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    @Override
+    public List<Prestito> listaCompleta() {
+        return new ArrayList<Prestito>(prestiti);
+    }
+
+    @Override
+    public void svuota() {
+        prestiti.clear();
+    }
+
 }

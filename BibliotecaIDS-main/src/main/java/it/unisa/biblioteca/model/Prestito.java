@@ -12,6 +12,7 @@
 package it.unisa.biblioteca.model;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  * @class Prestito
@@ -105,5 +106,19 @@ public class Prestito {
      */
     public void setDataResituzione(boolean b) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+    // altrimenti elimina prestito non è felice
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Prestito prestito = (Prestito) o;
+        return matricolaUtente.equals(prestito.matricolaUtente) &&
+               isbnLibro.equals(prestito.isbnLibro);
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(matricolaUtente, isbnLibro);
     }
 }

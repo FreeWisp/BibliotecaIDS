@@ -27,6 +27,12 @@ public class Libro {
     private int annoPubblicazione;
     private int numCopie;
 
+    
+    public Libro() {
+    // Necessario per Gson/Jackson
+    }
+    
+    
     /**
      * @brief Costruisce un nuovo oggetto Libro con i parametri specificati
      * 

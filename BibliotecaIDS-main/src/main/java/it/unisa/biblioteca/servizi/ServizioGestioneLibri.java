@@ -38,6 +38,11 @@ public class ServizioGestioneLibri {
     public void elimina(String isbn) {
         reposit.eliminaLibro(isbn);
     }
+    
+    public LibroRepository getRepository() {
+    return reposit;
+}
+
 
     public List<Libro> listaOrdinataTitolo() {
         return reposit.listaOrdinataPerTitolo();

@@ -35,6 +35,11 @@ public class ServizioGestioneUtenti {
     public void elimina(String matricola) {
         reposit.eliminaUtente(matricola);
     }
+    
+    public UtenteRepository getRepository() {
+    return reposit;
+}
+
 
     public List<Utente> cercaPerMatricola(String matricola) {
         return reposit.cercaPerMatricola(matricola);
