@@ -1,0 +1,19 @@
+var searchData=
+[
+  ['inmemorialibrorepository_0',['InMemoriaLibroRepository',['../classit_1_1unisa_1_1biblioteca_1_1repository_1_1inmemoria_1_1InMemoriaLibroRepository.html',1,'it.unisa.biblioteca.repository.inmemoria.InMemoriaLibroRepository'],['../classit_1_1unisa_1_1biblioteca_1_1repository_1_1inmemoria_1_1InMemoriaLibroRepository.html#a67940e7a066731538e0e684adec3c234',1,'it.unisa.biblioteca.repository.inmemoria.InMemoriaLibroRepository.InMemoriaLibroRepository()']]],
+  ['inmemorialibrorepository_2ejava_1',['InMemoriaLibroRepository.java',['../InMemoriaLibroRepository_8java.html',1,'']]],
+  ['inmemoriaprestitorepository_2',['InMemoriaPrestitoRepository',['../classit_1_1unisa_1_1biblioteca_1_1repository_1_1inmemoria_1_1InMemoriaPrestitoRepository.html',1,'it::unisa::biblioteca::repository::inmemoria']]],
+  ['inmemoriaprestitorepository_2ejava_3',['InMemoriaPrestitoRepository.java',['../InMemoriaPrestitoRepository_8java.html',1,'']]],
+  ['inmemoriautenterepository_4',['InMemoriaUtenteRepository',['../classit_1_1unisa_1_1biblioteca_1_1repository_1_1inmemoria_1_1InMemoriaUtenteRepository.html',1,'it::unisa::biblioteca::repository::inmemoria']]],
+  ['inmemoriautenterepository_2ejava_5',['InMemoriaUtenteRepository.java',['../InMemoriaUtenteRepository_8java.html',1,'']]],
+  ['inseriscilibro_6',['inserisciLibro',['../classit_1_1unisa_1_1biblioteca_1_1repository_1_1inmemoria_1_1InMemoriaLibroRepository.html#a56f8758f6bec20df7ea3afc86af4b1f3',1,'it.unisa.biblioteca.repository.inmemoria.InMemoriaLibroRepository.inserisciLibro()'],['../interfaceit_1_1unisa_1_1biblioteca_1_1repository_1_1LibroRepository.html#a53c676a8ef1025edd14dbb56e9f3745a',1,'it.unisa.biblioteca.repository.LibroRepository.inserisciLibro()']]],
+  ['inserisciprestito_7',['inserisciPrestito',['../classit_1_1unisa_1_1biblioteca_1_1repository_1_1inmemoria_1_1InMemoriaPrestitoRepository.html#ac50c64f894fd501f9e2bf485bf936a0c',1,'it.unisa.biblioteca.repository.inmemoria.InMemoriaPrestitoRepository.inserisciPrestito()'],['../interfaceit_1_1unisa_1_1biblioteca_1_1repository_1_1PrestitoRepository.html#a1f621eae2cc3a34e639eb0213b6516eb',1,'it.unisa.biblioteca.repository.PrestitoRepository.inserisciPrestito()']]],
+  ['inserisciutente_8',['inserisciUtente',['../classit_1_1unisa_1_1biblioteca_1_1repository_1_1inmemoria_1_1InMemoriaUtenteRepository.html#a6f0814c9304b4ce7598e04bb6b234a7f',1,'it.unisa.biblioteca.repository.inmemoria.InMemoriaUtenteRepository.inserisciUtente()'],['../interfaceit_1_1unisa_1_1biblioteca_1_1repository_1_1UtenteRepository.html#aa86f5b2fd56627b046ef2e5fb1b564d9',1,'it.unisa.biblioteca.repository.UtenteRepository.inserisciUtente()']]],
+  ['isattivo_9',['isAttivo',['../classit_1_1unisa_1_1biblioteca_1_1model_1_1Utente.html#aff65be154c3b823790416e54d9de713b',1,'it::unisa::biblioteca::model::Utente']]],
+  ['it_3a_3aunisa_3a_3abiblioteca_3a_3aapp_10',['app',['../namespaceit_1_1unisa_1_1biblioteca_1_1app.html',1,'it::unisa::biblioteca']]],
+  ['it_3a_3aunisa_3a_3abiblioteca_3a_3acontroller_11',['controller',['../namespaceit_1_1unisa_1_1biblioteca_1_1controller.html',1,'it::unisa::biblioteca']]],
+  ['it_3a_3aunisa_3a_3abiblioteca_3a_3amodel_12',['model',['../namespaceit_1_1unisa_1_1biblioteca_1_1model.html',1,'it::unisa::biblioteca']]],
+  ['it_3a_3aunisa_3a_3abiblioteca_3a_3arepository_13',['repository',['../namespaceit_1_1unisa_1_1biblioteca_1_1repository.html',1,'it::unisa::biblioteca']]],
+  ['it_3a_3aunisa_3a_3abiblioteca_3a_3arepository_3a_3ainmemoria_14',['inmemoria',['../namespaceit_1_1unisa_1_1biblioteca_1_1repository_1_1inmemoria.html',1,'it::unisa::biblioteca::repository']]],
+  ['it_3a_3aunisa_3a_3abiblioteca_3a_3aservizi_15',['servizi',['../namespaceit_1_1unisa_1_1biblioteca_1_1servizi.html',1,'it::unisa::biblioteca']]]
+];

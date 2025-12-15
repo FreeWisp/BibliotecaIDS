@@ -1,0 +1,6 @@
+var namespaceit_1_1unisa_1_1biblioteca_1_1repository_1_1inmemoria =
+[
+    [ "InMemoriaLibroRepository", "classit_1_1unisa_1_1biblioteca_1_1repository_1_1inmemoria_1_1InMemoriaLibroRepository.html", "classit_1_1unisa_1_1biblioteca_1_1repository_1_1inmemoria_1_1InMemoriaLibroRepository" ],
+    [ "InMemoriaPrestitoRepository", "classit_1_1unisa_1_1biblioteca_1_1repository_1_1inmemoria_1_1InMemoriaPrestitoRepository.html", "classit_1_1unisa_1_1biblioteca_1_1repository_1_1inmemoria_1_1InMemoriaPrestitoRepository" ],
+    [ "InMemoriaUtenteRepository", "classit_1_1unisa_1_1biblioteca_1_1repository_1_1inmemoria_1_1InMemoriaUtenteRepository.html", "classit_1_1unisa_1_1biblioteca_1_1repository_1_1inmemoria_1_1InMemoriaUtenteRepository" ]
+];
