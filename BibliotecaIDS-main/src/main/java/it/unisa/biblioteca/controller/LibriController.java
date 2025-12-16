@@ -161,7 +161,10 @@ public class LibriController {
     @FXML
     private void handleElimina() {
         Libro libro = tblLibri.getSelectionModel().getSelectedItem();
-        if (libro == null) { lblStatus.setText("⚠️ Seleziona un libro da eliminare"); return; }
+        if (libro == null) { 
+            lblStatus.setText("⚠️ Seleziona un libro da eliminare"); 
+            return; 
+        }
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Conferma Eliminazione");
@@ -170,12 +173,25 @@ public class LibriController {
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            biblioteca.getLibriService().elimina(libro.getIsbn());
-            caricaLibri();
-            lblStatus.setText("✅ Libro eliminato!");
-            salvaJSON();
-
-            if (mainController != null) mainController.aggiornaStatisticheDashboard();
+            boolean eliminato = biblioteca.getLibriService().elimina(libro.getIsbn());
+            
+            if (eliminato) {
+                // Libro eliminato con successo
+                caricaLibri();
+                lblStatus.setText("✅ Libro eliminato con successo!");
+                salvaJSON();
+                if (mainController != null) mainController.aggiornaStatisticheDashboard();
+            } else {
+                // ❌ Libro NON eliminato perché ha prestiti attivi
+                Alert errore = new Alert(Alert.AlertType.WARNING);
+                errore.setTitle("Impossibile Eliminare");
+                errore.setHeaderText("Libro con prestiti attivi");
+                errore.setContentText("Non è possibile eliminare \"" + libro.getTitolo() + 
+                                    "\" perché ci sono prestiti attivi. " +
+                                    "Attendi la restituzione di tutti i prestiti prima di eliminarlo.");
+                errore.showAndWait();
+                lblStatus.setText("⚠️ Impossibile eliminare: prestiti attivi");
+            }
         }
     }
 

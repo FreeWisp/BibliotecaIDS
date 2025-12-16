@@ -7,7 +7,9 @@
 package it.unisa.biblioteca.servizi;
 
 import it.unisa.biblioteca.model.Libro;
+import it.unisa.biblioteca.model.Prestito;
 import it.unisa.biblioteca.repository.LibroRepository;
+import it.unisa.biblioteca.repository.PrestitoRepository;
 import java.util.List;
 
 /**
@@ -17,7 +19,8 @@ import java.util.List;
  * Questa classe implementa la logica di business per la gestione del catalogo
  * dei libri della biblioteca. Si occupa di coordinare le operazioni di 
  * inserimento, modifica, eliminazione e ricerca dei libri, delegando 
- * la persistenza al repository.
+ * la persistenza al repository. Include controlli di integrità referenziale
+ * per prevenire la cancellazione di libri con prestiti attivi.
  */
 public class ServizioGestioneLibri {
 
@@ -25,18 +28,25 @@ public class ServizioGestioneLibri {
      * @brief Repository per la gestione della persistenza dei libri
      */
     private final LibroRepository reposit;
+    
+    /**
+     * @brief Repository per verificare i prestiti attivi
+     */
+    private final PrestitoRepository prestitoRepo;
 
     /**
      * @brief Costruttore del servizio di gestione libri
      * 
-     * Inizializza il servizio con il repository fornito, utilizzando
+     * Inizializza il servizio con i repository forniti, utilizzando
      * il pattern Dependency Injection per disaccoppiare il servizio
-     * dall'implementazione specifica del repository.
+     * dall'implementazione specifica dei repository.
      * 
      * @param reposit Il repository dei libri da utilizzare per la persistenza
+     * @param prestitoRepo Il repository dei prestiti per controlli di integrità
      */
-    public ServizioGestioneLibri(LibroRepository reposit) {
+    public ServizioGestioneLibri(LibroRepository reposit, PrestitoRepository prestitoRepo) {
         this.reposit = reposit;
+        this.prestitoRepo = prestitoRepo;
     }
 
     /**
@@ -65,15 +75,28 @@ public class ServizioGestioneLibri {
     }
 
     /**
-     * @brief Elimina un libro dal catalogo
+     * @brief Elimina un libro dal catalogo con controllo integrità
      * 
      * Rimuove un libro dalla biblioteca utilizzando il suo codice ISBN.
-     * L'operazione rimuove definitivamente il libro dal sistema.
+     * Prima di procedere con l'eliminazione, verifica che non ci siano
+     * prestiti attivi per questo libro. Questo previene problemi di
+     * integrità referenziale e prestiti "orfani".
      * 
      * @param isbn Il codice ISBN del libro da eliminare
+     * @return true se il libro è stato eliminato, false se ci sono prestiti attivi
      */
-    public void elimina(String isbn) {
+    public boolean elimina(String isbn) {
+        // Verifica se ci sono prestiti attivi per questo libro
+        List<Prestito> prestitiAttivi = prestitoRepo.cercaPrestitiPerIsbnLibro(isbn);
+        
+        if (prestitiAttivi != null && !prestitiAttivi.isEmpty()) {
+            // Ci sono prestiti attivi, NON eliminare il libro
+            return false;
+        }
+        
+        // Nessun prestito attivo, procedi con l'eliminazione
         reposit.eliminaLibro(isbn);
+        return true;
     }
     
     /**

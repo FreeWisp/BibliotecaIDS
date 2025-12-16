@@ -80,7 +80,7 @@ public class Biblioteca {
         this.prestitoRepository = new InMemoriaPrestitoRepository();
 
         // Servizi
-        this.libriService = new ServizioGestioneLibri(libroRepository);
+        this.libriService = new ServizioGestioneLibri(libroRepository, prestitoRepository);
         this.utentiService = new ServizioGestioneUtenti(utenteRepository);
         this.prestitiService = new ServizioPrestiti(prestitoRepository, utenteRepository, libroRepository);
         this.archivioService = new ServizioArchivio(this);
