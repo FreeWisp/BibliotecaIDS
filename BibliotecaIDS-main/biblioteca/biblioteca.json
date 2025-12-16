@@ -1,0 +1,210 @@
+{
+  "libri": [
+    {
+      "titolo": "Il barone rampante",
+      "autore": "Italo Calvino",
+      "isbn": "978-88-04-66523-9",
+      "annoPubblicazione": 1957,
+      "numCopie": 3
+    },
+    {
+      "titolo": "Il nome della rosa",
+      "autore": "Umberto Eco",
+      "isbn": "978-88-04-66165-1",
+      "annoPubblicazione": 1980,
+      "numCopie": 4
+    },
+    {
+      "titolo": "I promessi sposi",
+      "autore": "Alessandro Manzoni",
+      "isbn": "978-88-04-50482-8",
+      "annoPubblicazione": 1827,
+      "numCopie": 4
+    },
+    {
+      "titolo": "Gomorra",
+      "autore": "Roberto Saviano",
+      "isbn": "978-88-04-52891-6",
+      "annoPubblicazione": 2006,
+      "numCopie": 4
+    },
+    {
+      "titolo": "Sostiene Pereira",
+      "autore": "Antonio Tabucchi",
+      "isbn": "978-88-06-21945-4",
+      "annoPubblicazione": 1994,
+      "numCopie": 2
+    },
+    {
+      "titolo": "Le citta invisibili",
+      "autore": "Italo Calvino",
+      "isbn": "978-88-06-22847-0",
+      "annoPubblicazione": 1972,
+      "numCopie": 2
+    },
+    {
+      "titolo": "La luna e i falo",
+      "autore": "Cesare Pavese",
+      "isbn": "978-88-06-22341-3",
+      "annoPubblicazione": 1950,
+      "numCopie": 1
+    },
+    {
+      "titolo": "1984",
+      "autore": "Orwell",
+      "isbn": "1",
+      "annoPubblicazione": 1949,
+      "numCopie": 10
+    },
+    {
+      "titolo": "La coscienza di Zeno",
+      "autore": "Italo Svevo",
+      "isbn": "978-88-04-67891-8",
+      "annoPubblicazione": 1923,
+      "numCopie": 2
+    },
+    {
+      "titolo": "1984",
+      "autore": "George Orwell",
+      "isbn": "123456",
+      "annoPubblicazione": 1949,
+      "numCopie": 5
+    },
+    {
+      "titolo": "Se questo e un uomo",
+      "autore": "Primo Levi",
+      "isbn": "978-88-04-52417-8",
+      "annoPubblicazione": 1947,
+      "numCopie": 3
+    },
+    {
+      "titolo": "Cento anni di solitudine",
+      "autore": "Gabriel Garcia Marquez",
+      "isbn": "978-88-58-41234-5",
+      "annoPubblicazione": 1967,
+      "numCopie": 1
+    },
+    {
+      "titolo": "Il fu Mattia Pascal",
+      "autore": "Luigi Pirandello",
+      "isbn": "978-88-04-61928-7",
+      "annoPubblicazione": 1904,
+      "numCopie": 3
+    },
+    {
+      "titolo": "Il Gattopardo",
+      "autore": "Giuseppe Tomasi di Lampedusa",
+      "isbn": "978-88-06-21847-1",
+      "annoPubblicazione": 1958,
+      "numCopie": 3
+    }
+  ],
+  "utenti": [
+    {
+      "nome": "Sofia",
+      "cognome": "Romano",
+      "matricola": "ST006789",
+      "email": "sofia.romano@unisa.it",
+      "attivo": false
+    },
+    {
+      "nome": "Francesca",
+      "cognome": "Neri",
+      "matricola": "ST004567",
+      "email": "francesca.neri@unisa.it",
+      "attivo": true
+    },
+    {
+      "nome": "Alessandro",
+      "cognome": "Ferrari",
+      "matricola": "ST005678",
+      "email": "alessandro.ferrari@unisa.it",
+      "attivo": true
+    },
+    {
+      "nome": "Mario",
+      "cognome": "Rossi",
+      "matricola": "ST001234",
+      "email": "mario.rossi@unisa.it",
+      "attivo": true
+    },
+    {
+      "nome": "Giulia",
+      "cognome": "Bianchi",
+      "matricola": "ST002345",
+      "email": "giulia.bianchi@unisa.it",
+      "attivo": true
+    },
+    {
+      "nome": "Luca",
+      "cognome": "Verdi",
+      "matricola": "ST003456",
+      "email": "luca.verdi@unisa.it",
+      "attivo": true
+    },
+    {
+      "nome": "Chiara",
+      "cognome": "Colombo",
+      "matricola": "ST008901",
+      "email": "chiara.colombo@unisa.it",
+      "attivo": true
+    },
+    {
+      "nome": "Marco",
+      "cognome": "Esposito",
+      "matricola": "ST007890",
+      "email": "marco.esposito@unisa.it",
+      "attivo": true
+    },
+    {
+      "nome": "Elena",
+      "cognome": "Greco",
+      "matricola": "ST010123",
+      "email": "elena.greco@unisa.it",
+      "attivo": true
+    },
+    {
+      "nome": "Giuseppe",
+      "cognome": "Bruno",
+      "matricola": "ST011234",
+      "email": "giuseppe.bruno@unisa.it",
+      "attivo": false
+    },
+    {
+      "nome": "Martina",
+      "cognome": "Gallo",
+      "matricola": "ST012345",
+      "email": "martina.gallo@unisa.it",
+      "attivo": true
+    },
+    {
+      "nome": "Davide",
+      "cognome": "Ricci",
+      "matricola": "ST009012",
+      "email": "davide.ricci@unisa.it",
+      "attivo": true
+    }
+  ],
+  "prestiti": [
+    {
+      "matricolaUtente": "ST004567",
+      "isbnLibro": "978-88-04-50482-8",
+      "dataRestituzione": "2025-01-01"
+    },
+    {
+      "matricolaUtente": "ST007890",
+      "isbnLibro": "978-88-04-66523-9",
+      "dataRestituzione": "2024-12-25"
+    },
+    {
+      "matricolaUtente": "ST009012",
+      "isbnLibro": "978-88-06-22847-0",
+      "dataRestituzione": "2024-12-28"
+    },
+    {
+      "matricolaUtente": "ST004567",
+      "isbnLibro": "978-88-58-41234-5",
+      "dataRestituzione": "2025-12-28"
+    }
+  ]
+}
