@@ -105,35 +105,4 @@ Al primo avvio, si apre la dashboard principale con tre sezioni:
 
 ### Struttura del progetto
 ```
-src/main/java/it/unisa/biblioteca/
-├── app/
-│   └── Main.java                    # Entry point applicazione
-├── controller/
-│   ├── MainController.java          # Controller dashboard
-│   ├── LibriController.java         # Controller gestione libri
-│   ├── UtentiController.java        # Controller gestione utenti
-│   └── PrestitiController.java      # Controller gestione prestiti
-├── model/
-│   ├── Libro.java                   # Entità Libro
-│   ├── Utente.java                  # Entità Utente
-│   ├── Prestito.java                # Entità Prestito
-│   └── Biblioteca.java              # Container principale
-├── repository/
-│   ├── LibroRepository.java         # Interfaccia repository libri
-│   ├── UtenteRepository.java        # Interfaccia repository utenti
-│   ├── PrestitoRepository.java      # Interfaccia repository prestiti
-│   └── inmemoria/
-│       ├── InMemoriaLibroRepository.java
-│       ├── InMemoriaUtenteRepository.java
-│       └── InMemoriaPrestitoRepository.java
-└── servizi/
-    ├── ServizioGestioneLibri.java   # Logica business libri
-    ├── ServizioGestioneUtenti.java  # Logica business utenti
-    ├── ServizioPrestiti.java        # Logica business prestiti
-    └── ServizioArchivio.java        # Salvataggio/caricamento dati
 
-src/main/resources/fxml/
-├── MainView.fxml                    # Vista dashboard
-├── LibriView.fxml                   # Vista gestione libri
-├── UtentiView.fxml                  # Vista gestione utenti
-└── PrestitiView.fxml                # Vista gestione prestiti
