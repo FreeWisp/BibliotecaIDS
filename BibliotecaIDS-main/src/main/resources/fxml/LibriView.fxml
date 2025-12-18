@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" 
+            xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="it.unisa.biblioteca.controller.LibriController"
+            prefHeight="700.0" prefWidth="1000.0">
+    
+    <!-- HEADER -->
+    <top>
+        <VBox style="-fx-background-color: #3498db;">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+            <Label text="📚 Gestione Libri" textFill="white">
+                <font>
+                    <Font name="System Bold" size="24"/>
+                </font>
+            </Label>
+        </VBox>
+    </top>
+    
+    <center>
+        <SplitPane dividerPositions="0.6">
+            
+            <!-- LEFT - Tabella libri -->
+            <VBox spacing="10">
+                <padding>
+                    <Insets top="15" right="15" bottom="15" left="15"/>
+                </padding>
+                
+                <Label text="Elenco Libri">
+                    <font>
+                        <Font name="System Bold" size="16"/>
+                    </font>
+                </Label>
+                
+                <!-- Barra ricerca -->
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <TextField fx:id="txtCerca" promptText="Cerca per titolo, autore o ISBN..." HBox.hgrow="ALWAYS"/>
+                    <Button text="🔍 Cerca" onAction="#handleCerca" style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
+                    <Button text="Mostra Tutti" onAction="#handleMostraTutti" style="-fx-background-color: #95a5a6; -fx-text-fill: white;"/>
+                </HBox>
+                
+                <!-- Tabella -->
+                <TableView fx:id="tblLibri" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn text="Titolo" prefWidth="200">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="titolo"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn text="Autore" prefWidth="150">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="autore"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn text="ISBN" prefWidth="120">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="isbn"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn text="Anno" prefWidth="80">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="annoPubblicazione"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn text="Copie" prefWidth="70">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="numCopie"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                    </columns>
+                </TableView>
+                
+                <!-- Bottoni azioni -->
+                <HBox spacing="10">
+                    <Button text="✏️ Modifica" fx:id="btnModifica" onAction="#handleModifica" 
+                            style="-fx-background-color: #f39c12; -fx-text-fill: white;"/>
+                    <Button text="🗑️ Elimina" fx:id="btnElimina" onAction="#handleElimina" 
+                            style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
+                </HBox>
+            </VBox>
+            
+            <!-- RIGHT - Form aggiungi/modifica -->
+            <VBox spacing="15" style="-fx-background-color: #ecf0f1;">
+                <padding>
+                    <Insets top="15" right="15" bottom="15" left="15"/>
+                </padding>
+                
+                <Label fx:id="lblFormTitle" text="➕ Aggiungi Nuovo Libro">
+                    <font>
+                        <Font name="System Bold" size="16"/>
+                    </font>
+                </Label>
+                
+                <Separator/>
+                
+                <Label text="Titolo:"/>
+                <TextField fx:id="txtTitolo" promptText="Inserisci il titolo"/>
+                
+                <Label text="Autore:"/>
+                <TextField fx:id="txtAutore" promptText="Inserisci l'autore"/>
+                
+                <Label text="ISBN:"/>
+                <TextField fx:id="txtIsbn" promptText="Inserisci ISBN"/>
+                
+                <Label text="Anno Pubblicazione:"/>
+                <TextField fx:id="txtAnno" promptText="Es. 2024"/>
+                
+                <Label text="Numero Copie:"/>
+                <TextField fx:id="txtCopie" promptText="Es. 5"/>
+                
+                <Region VBox.vgrow="ALWAYS"/>
+                
+                <HBox spacing="10">
+                    <Button text="💾 Salva" onAction="#handleSalva" 
+                            style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20;"
+                            HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                    <Button text="🔄 Pulisci" onAction="#handlePulisci" 
+                            style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20;"
+                            HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                </HBox>
+            </VBox>
+            
+        </SplitPane>
+    </center>
+    
+    <!-- FOOTER -->
+    <bottom>
+        <HBox alignment="CENTER_LEFT" style="-fx-background-color: #34495e; -fx-padding: 10;">
+            <Label fx:id="lblStatus" text="Pronto" textFill="white"/>
+        </HBox>
+    </bottom>
+    
+</BorderPane>
