@@ -1,0 +1,235 @@
+{
+  "libri": [
+    {
+      "titolo": "Algoritmi e strutture di dati. Astrazione, progetto e realizzazione",
+      "autore": "Pasquale Foggia, Mario Vento",
+      "isbn": "978-88-38-66-262-1",
+      "annoPubblicazione": 2011,
+      "numCopie": 2
+    },
+    {
+      "titolo": "Il nome della rosa",
+      "autore": "Umberto Eco",
+      "isbn": "978-88-04-66165-1",
+      "annoPubblicazione": 1980,
+      "numCopie": 3
+    },
+    {
+      "titolo": "Rosso Malpelo",
+      "autore": "Giovanni Verga",
+      "isbn": "978-88-98-43-950-8",
+      "annoPubblicazione": 1878,
+      "numCopie": 22
+    },
+    {
+      "titolo": "One Piece n. 103",
+      "autore": "Eiichirō Oda",
+      "isbn": "9783551746184",
+      "annoPubblicazione": 2022,
+      "numCopie": 5
+    },
+    {
+      "titolo": "Gomorra",
+      "autore": "Roberto Saviano",
+      "isbn": "978-88-04-52891-6",
+      "annoPubblicazione": 2006,
+      "numCopie": 4
+    },
+    {
+      "titolo": "Tutte le barzellette su Totti: raccolte da me",
+      "autore": "Francesco Totti",
+      "isbn": "978-88-04-52-337-6",
+      "annoPubblicazione": 2003,
+      "numCopie": 2
+    },
+    {
+      "titolo": "Sesto Viaggio nel Regno della Fantasia",
+      "autore": "Geronimo Stilton",
+      "isbn": "978-88-56-66-541-3",
+      "annoPubblicazione": 2010,
+      "numCopie": 3
+    },
+    {
+      "titolo": "Il Partigiano Johnny",
+      "autore": "Beppe Fenoglio",
+      "isbn": "978-88-06-29-363-5",
+      "annoPubblicazione": 1968,
+      "numCopie": 6
+    },
+    {
+      "titolo": "Diario di una Schiappa si salvi chi puo\u0027",
+      "autore": "Jeff Kinney",
+      "isbn": "978-88-80-33-665-5",
+      "annoPubblicazione": 2011,
+      "numCopie": 3
+    },
+    {
+      "titolo": "La luna e i falo",
+      "autore": "Cesare Pavese",
+      "isbn": "978-88-06-22341-3",
+      "annoPubblicazione": 1950,
+      "numCopie": 1
+    },
+    {
+      "titolo": "1984",
+      "autore": "George Orwell",
+      "isbn": "978-04-36-35022-1",
+      "annoPubblicazione": 1949,
+      "numCopie": 5
+    },
+    {
+      "titolo": "La coscienza di Zeno",
+      "autore": "Italo Svevo",
+      "isbn": "978-88-04-67891-8",
+      "annoPubblicazione": 1923,
+      "numCopie": 2
+    },
+    {
+      "titolo": "Io, me e me stesso",
+      "autore": "Mirko Alessandrini",
+      "isbn": "978-88-91-80856-1",
+      "annoPubblicazione": 2017,
+      "numCopie": 3
+    },
+    {
+      "titolo": "Necronomicon",
+      "autore": "Abdul Alhazred",
+      "isbn": "666-88-01-11200-6",
+      "annoPubblicazione": 950,
+      "numCopie": 1
+    },
+    {
+      "titolo": "Se questo è un uomo",
+      "autore": "Primo Levi",
+      "isbn": "978-88-04-52417-8",
+      "annoPubblicazione": 1947,
+      "numCopie": 3
+    },
+    {
+      "titolo": "Il fu Mattia Pascal",
+      "autore": "Luigi Pirandello",
+      "isbn": "978-88-04-61928-7",
+      "annoPubblicazione": 1904,
+      "numCopie": 2
+    },
+    {
+      "titolo": "Orbit Orbit",
+      "autore": "Caparezza",
+      "isbn": "979-12-56-29-164-9",
+      "annoPubblicazione": 2025,
+      "numCopie": 10
+    },
+    {
+      "titolo": "Le avventure di Pinocchio",
+      "autore": "Carlo Collodi",
+      "isbn": "978-88-91-81-546-0",
+      "annoPubblicazione": 1883,
+      "numCopie": 1
+    }
+  ],
+  "utenti": [
+    {
+      "nome": "Marco",
+      "cognome": "Esposito",
+      "matricola": "ST007890",
+      "email": "marco.esposito@unisa.it",
+      "attivo": true
+    },
+    {
+      "nome": "Davide",
+      "cognome": "Ricci",
+      "matricola": "ST009012",
+      "email": "davide.ricci@unisa.it",
+      "attivo": true
+    },
+    {
+      "nome": "Sofia",
+      "cognome": "Romano",
+      "matricola": "ST006789",
+      "email": "sofia.romano@unisa.it",
+      "attivo": false
+    },
+    {
+      "nome": "Francesca",
+      "cognome": "Neri",
+      "matricola": "ST004567",
+      "email": "francesca.neri@unisa.it",
+      "attivo": true
+    },
+    {
+      "nome": "Alessandro",
+      "cognome": "Ferrari",
+      "matricola": "ST005678",
+      "email": "alessandro.ferrari@unisa.it",
+      "attivo": true
+    },
+    {
+      "nome": "alessandro",
+      "cognome": "rossi",
+      "matricola": "ST004578",
+      "email": "alessandro.rossi@unisa.it",
+      "attivo": true
+    },
+    {
+      "nome": "Mario",
+      "cognome": "Rossi",
+      "matricola": "ST001234",
+      "email": "mario.rossi@unisa.it",
+      "attivo": true
+    },
+    {
+      "nome": "Giulia",
+      "cognome": "Bianchi",
+      "matricola": "ST002345",
+      "email": "giulia.bianchi@unisa.it",
+      "attivo": true
+    },
+    {
+      "nome": "Luca",
+      "cognome": "Verdi",
+      "matricola": "ST003456",
+      "email": "luca.verdi@unisa.it",
+      "attivo": true
+    },
+    {
+      "nome": "Chiara",
+      "cognome": "Colombo",
+      "matricola": "ST008901",
+      "email": "chiara.colombo@unisa.it",
+      "attivo": true
+    },
+    {
+      "nome": "Elena",
+      "cognome": "Greco",
+      "matricola": "ST010123",
+      "email": "elena.greco@unisa.it",
+      "attivo": true
+    },
+    {
+      "nome": "Giuseppe",
+      "cognome": "Bruno",
+      "matricola": "ST011234",
+      "email": "giuseppe.bruno@unisa.it",
+      "attivo": false
+    },
+    {
+      "nome": "Martina",
+      "cognome": "Gallo",
+      "matricola": "ST012345",
+      "email": "martina.gallo@unisa.it",
+      "attivo": true
+    }
+  ],
+  "prestiti": [
+    {
+      "matricolaUtente": "ST002345",
+      "isbnLibro": "978-88-04-61928-7",
+      "dataRestituzione": "2026-01-01"
+    },
+    {
+      "matricolaUtente": "ST007890",
+      "isbnLibro": "978-88-04-66165-1",
+      "dataRestituzione": "2026-01-01"
+    }
+  ]
+}
