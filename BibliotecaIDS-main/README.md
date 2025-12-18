@@ -105,4 +105,91 @@ Al primo avvio, si apre la dashboard principale con tre sezioni:
 
 ### Struttura del progetto
 ```
-
+gestionebiblioteca
+├── Consegne/
+│   ├── diagrammiSequenza/
+│   ├── diagrammaClassi.puml
+│   ├── Documento di specifica dei requisiti software.pdf
+│   └── Documentazione diagrammi.pdf
+│
+├── biblioteca/
+│   └── biblioteca.json
+│
+├── docs/
+│   └── html/
+│
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── it/unisa/biblioteca/
+│   │   │       ├── app/
+│   │   │       │   └── Main.java
+│   │   │       │
+│   │   │       ├── controller/
+│   │   │       │   ├── MainController.java
+│   │   │       │   ├── LibriController.java
+│   │   │       │   ├── UtentiController.java
+│   │   │       │   └── PrestitiController.java
+│   │   │       │   └── UtentiConPrestitiController.java
+│   │   │       ├── model/
+│   │   │       │   ├── Biblioteca.java
+│   │   │       │   ├── Libro.java
+│   │   │       │   ├── Utente.java
+│   │   │       │   └── Prestito.java
+│   │   │       │   └── UtenteConPrestiti.java   
+│   │   │       ├── repository/
+│   │   │       │   ├── LibroRepository.java
+│   │   │       │   ├── UtenteRepository.java
+│   │   │       │   ├── PrestitoRepository.java
+│   │   │       │   └── inmemoria/
+│   │   │       │       ├── InMemoriaLibroRepository.java
+│   │   │       │       ├── InMemoriaUtenteRepository.java
+│   │   │       │       └── InMemoriaPrestitoRepository.java
+│   │   │       │
+│   │   │       └── servizi/
+│   │   │           ├── ServizioGestioneLibri.java
+│   │   │           ├── ServizioGestioneUtenti.java
+│   │   │           ├── ServizioPrestiti.java
+│   │   │           └── ServizioArchivio.java
+│   │   │
+│   │   └── resources/
+│   │       └── fxml/
+│   │           ├── MainView.fxml
+│   │           ├── LibriView.fxml
+│   │           ├── UtentiView.fxml
+│   │           └── PrestitiView.fxml
+│   │
+│   └── test/
+│       └── java/
+│           └── it/unisa/biblioteca/
+│               ├── controller/
+│               │   ├── LibriControllerTest.java
+│               │   ├── PrestitiControllerTest.java
+│               │   ├── UtentiControllerTest.java
+│               │   └── UtentiConPrestitiControllerTest.java
+│               ├── model/
+│               │   ├── BibliotecaTest.java
+│               │   ├── LibroTest.java
+│               │   ├── PrestitoTest.java
+│               │   ├── UtenteTest.java
+│               │   └── UtenteConPrestitiTest.java  
+│               └── repository/
+│                   └── inmemoria/
+│                       ├── InMemoriaLibroRepositoryTest.java
+│                       ├── InMemoriaUtenteRepositoryTest.java
+│                       └── InMemoriaPrestitoRepositoryTest.java
+│
+├── target/
+│   ├── classes/
+│   ├── test-classes/
+│   ├── generated-sources/
+│   ├── generated-test-sources/
+│   ├── surefire-reports/
+│   └── maven-status/
+│
+├── README.md
+├── Doxyfile
+├── pom.xml
+├── .gitignore
+├── nbactions.xml
+└── nb-configuration.xml
