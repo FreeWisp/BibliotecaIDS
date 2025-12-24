@@ -5,14 +5,14 @@
       "autore": "Pasquale Foggia, Mario Vento",
       "isbn": "978-88-38-66-262-1",
       "annoPubblicazione": 2011,
-      "numCopie": 2
+      "numCopie": 1
     },
     {
       "titolo": "Il nome della rosa",
       "autore": "Umberto Eco",
       "isbn": "978-88-04-66165-1",
       "annoPubblicazione": 1980,
-      "numCopie": 3
+      "numCopie": 2
     },
     {
       "titolo": "Rosso Malpelo",
@@ -33,7 +33,7 @@
       "autore": "Roberto Saviano",
       "isbn": "978-88-04-52891-6",
       "annoPubblicazione": 2006,
-      "numCopie": 4
+      "numCopie": 3
     },
     {
       "titolo": "Tutte le barzellette su Totti: raccolte da me",
@@ -61,7 +61,7 @@
       "autore": "Jeff Kinney",
       "isbn": "978-88-80-33-665-5",
       "annoPubblicazione": 2011,
-      "numCopie": 3
+      "numCopie": 2
     },
     {
       "titolo": "La luna e i falo",
@@ -71,25 +71,18 @@
       "numCopie": 1
     },
     {
-      "titolo": "1984",
-      "autore": "George Orwell",
-      "isbn": "978-04-36-35022-1",
-      "annoPubblicazione": 1949,
-      "numCopie": 5
-    },
-    {
       "titolo": "La coscienza di Zeno",
       "autore": "Italo Svevo",
       "isbn": "978-88-04-67891-8",
       "annoPubblicazione": 1923,
-      "numCopie": 2
+      "numCopie": 1
     },
     {
       "titolo": "Io, me e me stesso",
       "autore": "Mirko Alessandrini",
       "isbn": "978-88-91-80856-1",
       "annoPubblicazione": 2017,
-      "numCopie": 3
+      "numCopie": 2
     },
     {
       "titolo": "Necronomicon",
@@ -110,7 +103,7 @@
       "autore": "Luigi Pirandello",
       "isbn": "978-88-04-61928-7",
       "annoPubblicazione": 1904,
-      "numCopie": 2
+      "numCopie": 1
     },
     {
       "titolo": "Orbit Orbit",
@@ -137,17 +130,17 @@
     },
     {
       "nome": "Davide",
-      "cognome": "Ricci",
+      "cognome": "Rossi",
       "matricola": "ST009012",
-      "email": "davide.ricci@unisa.it",
+      "email": "davide.rossi@unisa.it",
       "attivo": true
     },
     {
-      "nome": "Sofia",
-      "cognome": "Romano",
+      "nome": "Francesco",
+      "cognome": "Ricci",
       "matricola": "ST006789",
-      "email": "sofia.romano@unisa.it",
-      "attivo": false
+      "email": "Francesco.Ricci@unisa.it",
+      "attivo": true
     },
     {
       "nome": "Francesca",
@@ -224,12 +217,47 @@
     {
       "matricolaUtente": "ST002345",
       "isbnLibro": "978-88-04-61928-7",
-      "dataRestituzione": "2026-01-01"
+      "dataRestituzione": "2025-01-01"
     },
     {
       "matricolaUtente": "ST007890",
       "isbnLibro": "978-88-04-66165-1",
-      "dataRestituzione": "2026-01-01"
+      "dataRestituzione": "2025-01-01"
+    },
+    {
+      "matricolaUtente": "ST007890",
+      "isbnLibro": "978-88-38-66-262-1",
+      "dataRestituzione": "2026-01-02"
+    },
+    {
+      "matricolaUtente": "ST005678",
+      "isbnLibro": "978-88-04-61928-7",
+      "dataRestituzione": "2026-01-02"
+    },
+    {
+      "matricolaUtente": "ST008901",
+      "isbnLibro": "978-88-04-52891-6",
+      "dataRestituzione": "2026-01-02"
+    },
+    {
+      "matricolaUtente": "ST008901",
+      "isbnLibro": "978-88-04-66165-1",
+      "dataRestituzione": "2026-01-02"
+    },
+    {
+      "matricolaUtente": "ST008901",
+      "isbnLibro": "978-88-04-67891-8",
+      "dataRestituzione": "2026-01-02"
+    },
+    {
+      "matricolaUtente": "ST012345",
+      "isbnLibro": "978-88-80-33-665-5",
+      "dataRestituzione": "2026-01-02"
+    },
+    {
+      "matricolaUtente": "ST007890",
+      "isbnLibro": "978-88-91-80856-1",
+      "dataRestituzione": "2026-01-07"
     }
   ]
 }
